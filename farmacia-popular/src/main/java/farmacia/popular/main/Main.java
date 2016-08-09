@@ -2,6 +2,9 @@ package farmacia.popular.main;
 
 import base.utilidades.Utils;
 import com.pagosoft.plaf.PlafOptions;
+import farmacia.popular.paneles.PanelPrincipal;
+import java.awt.Dimension;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
@@ -14,6 +17,12 @@ import org.apache.log4j.Logger;
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
 
+    private static PanelPrincipal ventanaPrincipal;
+
+    public static PanelPrincipal getVentanaPrincipal() {
+        return ventanaPrincipal;
+    }
+    
     public static void main(String args[]) {
 
         // Establecer apariencia de la aplicación
@@ -36,6 +45,13 @@ public class Main {
         Utils.leerArchivoPropiedades();
         
         // Levantar panel principal
-        
+        ventanaPrincipal = new PanelPrincipal();
+        ventanaPrincipal.setTitle("Farmacia Popular");
+        ventanaPrincipal.setIconImage(Utils.getIcono());
+        ventanaPrincipal.setMinimumSize(new Dimension(800, 600));
+        ventanaPrincipal.setResizable(true);
+        ventanaPrincipal.setLocationRelativeTo(null);
+        ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventanaPrincipal.setVisible(true);
     }
 }
