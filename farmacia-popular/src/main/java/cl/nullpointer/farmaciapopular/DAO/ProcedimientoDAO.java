@@ -1,6 +1,6 @@
-package farmacia.popular.DAO;
+package cl.nullpointer.farmaciapopular.DAO;
 
-import farmacia.popular.DAO.impl.DAOManager;
+import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
 
 /**
  *

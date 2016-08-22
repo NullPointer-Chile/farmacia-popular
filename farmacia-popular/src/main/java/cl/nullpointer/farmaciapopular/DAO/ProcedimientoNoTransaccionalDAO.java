@@ -1,4 +1,4 @@
-package farmacia.popular.DAO;
+package cl.nullpointer.farmaciapopular.DAO;
 
 /**
  *

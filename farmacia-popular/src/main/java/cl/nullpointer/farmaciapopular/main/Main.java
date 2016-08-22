@@ -1,8 +1,8 @@
-package farmacia.popular.main;
+package cl.nullpointer.farmaciapopular.main;
 
 import base.utilidades.Utils;
 import com.pagosoft.plaf.PlafOptions;
-import farmacia.popular.paneles.PanelPrincipal;
+import cl.nullpointer.farmaciapopular.paneles.PanelPrincipal;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

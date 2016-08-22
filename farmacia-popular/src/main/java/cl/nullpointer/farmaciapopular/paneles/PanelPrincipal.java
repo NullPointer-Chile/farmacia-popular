@@ -1,4 +1,4 @@
-package farmacia.popular.paneles;
+package cl.nullpointer.farmaciapopular.paneles;
 
 import javax.swing.JOptionPane;
 

@@ -1,6 +1,6 @@
-package farmacia.popular.DAO.impl;
+package cl.nullpointer.farmaciapopular.DAO.impl;
 
-import farmacia.popular.DAO.PersistenceDAO;
+import cl.nullpointer.farmaciapopular.DAO.PersistenceDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

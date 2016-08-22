@@ -1,11 +1,11 @@
-package farmacia.popular.DAO.impl;
+package cl.nullpointer.farmaciapopular.DAO.impl;
 
 import base.utilidades.Global;
 import base.utilidades.Utils;
 import base.validacion.impl.ResultadoMetodoImpl;
-import farmacia.popular.DAO.ProcedimientoDAO;
-import farmacia.popular.DAO.ProcedimientoNoTransaccionalDAO;
-import farmacia.popular.DAO.ProcedimientoTransaccionalDAO;
+import cl.nullpointer.farmaciapopular.DAO.ProcedimientoDAO;
+import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
+import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.RollbackException;

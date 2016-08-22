@@ -1,4 +1,4 @@
-package farmacia.popular.DAO.impl;
+package cl.nullpointer.farmaciapopular.DAO.impl;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
