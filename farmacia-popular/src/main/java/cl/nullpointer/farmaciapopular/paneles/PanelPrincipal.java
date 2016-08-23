@@ -17,19 +17,26 @@ public class PanelPrincipal extends JFrame {
     }
 
     private void configuracion() {
-        
+
     }
 
-    private void salir(){
+    private void salir() {
         System.exit(0);
     }
-    
+
     private void acercaDe() {
         JOptionPane.showMessageDialog(null, "Software desarrollado por NullPointer. \nSi tiene dudas escríbanos a "
                 + "contacto@nullpointer.cl", "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    
+
+    private void usuarios() {
+        //TODO
+    }
+
+    private void fabricantes() {
+        //TODO
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,6 +46,9 @@ public class PanelPrincipal extends JFrame {
         menuItemConfiguracion = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemSalir = new javax.swing.JMenuItem();
+        menuMantenedores = new javax.swing.JMenu();
+        menuUsuarios = new javax.swing.JMenuItem();
+        menuFabricantes = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         menuItemAcercaDe = new javax.swing.JMenuItem();
 
@@ -65,6 +75,26 @@ public class PanelPrincipal extends JFrame {
 
         barraMenu.add(menuSistema);
 
+        menuMantenedores.setText("Mantenedores");
+
+        menuUsuarios.setText("Usuarios");
+        menuUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUsuariosActionPerformed(evt);
+            }
+        });
+        menuMantenedores.add(menuUsuarios);
+
+        menuFabricantes.setText("Fabricantes");
+        menuFabricantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFabricantesActionPerformed(evt);
+            }
+        });
+        menuMantenedores.add(menuFabricantes);
+
+        barraMenu.add(menuMantenedores);
+
         menuAyuda.setText("Ayuda");
 
         menuItemAcercaDe.setText("Acerca de");
@@ -87,14 +117,14 @@ public class PanelPrincipal extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+            .addGap(0, 448, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConfiguracionActionPerformed
-       configuracion();
+        configuracion();
     }//GEN-LAST:event_menuItemConfiguracionActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
@@ -105,13 +135,24 @@ public class PanelPrincipal extends JFrame {
         acercaDe();
     }//GEN-LAST:event_menuItemAcercaDeActionPerformed
 
+    private void menuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuariosActionPerformed
+        usuarios();
+    }//GEN-LAST:event_menuUsuariosActionPerformed
+
+    private void menuFabricantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFabricantesActionPerformed
+        fabricantes();
+    }//GEN-LAST:event_menuFabricantesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuAyuda;
+    private javax.swing.JMenuItem menuFabricantes;
     private javax.swing.JMenuItem menuItemAcercaDe;
     private javax.swing.JMenuItem menuItemConfiguracion;
     private javax.swing.JMenuItem menuItemSalir;
+    private javax.swing.JMenu menuMantenedores;
     private javax.swing.JMenu menuSistema;
+    private javax.swing.JMenuItem menuUsuarios;
     // End of variables declaration//GEN-END:variables
 }

@@ -29,6 +29,29 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menuMantenedores">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mantenedores"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuUsuarios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Usuarios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuUsuariosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuFabricantes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fabricantes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFabricantesActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="menuAyuda">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
@@ -75,7 +98,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="446" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="448" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
