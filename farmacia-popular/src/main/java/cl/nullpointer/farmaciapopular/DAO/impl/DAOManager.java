@@ -25,6 +25,7 @@ public class DAOManager implements ProcedimientoNoTransaccionalDAO, Procedimient
     protected final EntityManager entityManager;
     protected FechaHoraDAO fechaHoraDAO = null;
     protected FabricanteDAO fabricanteDAO = null;
+    protected UsuarioDAO usuarioDAO = null;
 
     public DAOManager() {
         entityManager = EMF.createEntityManager();
@@ -43,6 +44,13 @@ public class DAOManager implements ProcedimientoNoTransaccionalDAO, Procedimient
             fabricanteDAO = new FabricanteDAO(entityManager);
         }
         return fabricanteDAO;
+    }
+
+    public UsuarioDAO getUsuarioDAO() {
+        if (usuarioDAO == null) {
+            usuarioDAO = new UsuarioDAO(entityManager);
+        }
+        return usuarioDAO;
     }
 
     @Override
