@@ -1,5 +1,6 @@
+package cl.nullpointer.farmaciapopular.DAO.impl;
+
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
-import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
 import java.time.LocalDateTime;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.assertNotNull;
