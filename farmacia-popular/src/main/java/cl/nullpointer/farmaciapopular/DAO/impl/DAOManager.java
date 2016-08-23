@@ -1,13 +1,14 @@
 package cl.nullpointer.farmaciapopular.DAO.impl;
 
-import base.utilidades.Global;
 import base.utilidades.Utils;
 import base.validacion.impl.ResultadoMetodoImpl;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoDAO;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.FlushModeType;
+import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import org.apache.log4j.Logger;
 
@@ -17,13 +18,15 @@ import org.apache.log4j.Logger;
  */
 public class DAOManager implements ProcedimientoNoTransaccionalDAO, ProcedimientoTransaccionalDAO {
 
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+
     public static final Logger LOG = Logger.getLogger(DAOManager.class);
 
     protected final EntityManager entityManager;
     protected FechaHoraDAO fechaHoraDAO = null;
 
     public DAOManager() {
-        entityManager = Global.emf.createEntityManager();
+        entityManager = emf.createEntityManager();
         entityManager.setFlushMode(FlushModeType.COMMIT);
 
     }
