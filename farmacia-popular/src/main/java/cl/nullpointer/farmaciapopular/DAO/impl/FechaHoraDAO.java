@@ -25,6 +25,7 @@ public class FechaHoraDAO extends EclipseLinkDAO {
     @SuppressWarnings("unchecked")
     public LocalDateTime getFechaHoraNow() {
         LOG.debug("Ejecutando consulta para obtener fecha actual desde el servidor.");
+        
         crearQueryNativa("SELECT NOW()");
 
         return ((Timestamp) getSingleResult()).toLocalDateTime();

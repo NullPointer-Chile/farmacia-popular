@@ -1,12 +1,13 @@
 package cl.nullpointer.farmaciapopular.paneles;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Omar Paché
  */
-public class PanelPrincipal extends javax.swing.JFrame {
+public class PanelPrincipal extends JFrame {
 
     /**
      * Crea el PanelPrincipal
