@@ -13,12 +13,12 @@
     </properties>
     
     <dependencies>
-         <!-- Clases base -->
+        <!-- Clases base -->
         <dependency>
-	    <groupId>com.github.NullPointer-Chile</groupId>
-	    <artifactId>base</artifactId>
-	    <version>1.0-SNAPSHOT</version>
-	</dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         
         <!-- Trazabilidad -->
         <dependency>
@@ -36,7 +36,7 @@
             <scope>test</scope>
         </dependency>
         
-         <!-- Look and feel -->
+        <!-- Look and feel -->
         <dependency>
             <groupId>com.github.arnabk</groupId>
             <artifactId>pgslookandfeel</artifactId>
@@ -66,13 +66,7 @@
             <version>5.1.21</version>
             <scope>runtime</scope>
         </dependency>
+     
     </dependencies>
-    
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
     
 </project>
