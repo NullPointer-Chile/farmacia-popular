@@ -18,17 +18,17 @@ import org.apache.log4j.Logger;
  */
 public class DAOManager implements ProcedimientoNoTransaccionalDAO, ProcedimientoTransaccionalDAO {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+    private static final Logger LOG = Logger.getLogger(DAOManager.class);
 
-    public static final Logger LOG = Logger.getLogger(DAOManager.class);
+    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("PU");
 
     protected final EntityManager entityManager;
     protected FechaHoraDAO fechaHoraDAO = null;
+    protected FabricanteDAO fabricanteDAO = null;
 
     public DAOManager() {
-        entityManager = emf.createEntityManager();
+        entityManager = EMF.createEntityManager();
         entityManager.setFlushMode(FlushModeType.COMMIT);
-
     }
 
     public FechaHoraDAO getFechaHoraDAO() {
@@ -36,6 +36,13 @@ public class DAOManager implements ProcedimientoNoTransaccionalDAO, Procedimient
             fechaHoraDAO = new FechaHoraDAO(entityManager);
         }
         return fechaHoraDAO;
+    }
+
+    public FabricanteDAO getFabricanteDAO() {
+        if (fabricanteDAO == null) {
+            fabricanteDAO = new FabricanteDAO(entityManager);
+        }
+        return fabricanteDAO;
     }
 
     @Override

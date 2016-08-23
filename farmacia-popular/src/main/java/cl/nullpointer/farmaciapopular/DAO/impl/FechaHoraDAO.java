@@ -22,7 +22,6 @@ public class FechaHoraDAO extends EclipseLinkDAO {
      *
      * @return fecha y hora de tipo FechaHora
      */
-    @SuppressWarnings("unchecked")
     public LocalDateTime getFechaHoraNow() {
         LOG.debug("Ejecutando consulta para obtener fecha actual desde el servidor.");
         

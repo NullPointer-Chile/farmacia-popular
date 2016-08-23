@@ -1,6 +1,7 @@
 package cl.nullpointer.farmaciapopular.DAO.impl;
 
 import cl.nullpointer.farmaciapopular.dominio.Fabricante;
+import cl.nullpointer.farmaciapopular.entidades.FabricanteEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,23 +20,23 @@ public class FabricanteDAO extends EclipseLinkDAO {
     }
 
     /**
-     * Obtener listado con todos los farbicantes.
-     * 
-     * @return 
+     * Obtener listado con todos los fabricantes.
+     *
+     * @return listado de todos los fabricantes encontrados
      */
     public List<Fabricante> getAllFabricantes() {
-        LOG.debug("Ejecutando consulta para obtener alumnos.");
+        LOG.debug("Ejecutando consulta para obtener fabricantes.");
 
-        String consulta = " SELECT fabricante FROM FabricanteEntity fabricante";
+        String consulta = "SELECT fabricante FROM FabricanteEntity fabricante";
 
         crearQueryTipica(consulta);
 
-        List<Fabricante> fabrocanteList = new ArrayList<>();
+        List<Fabricante> fabricanteList = new ArrayList<>();
 
-//        for (FabricanteEntity alumnoEntity : (List<FabricanteEntity>) getResultList()) {
-//            Fabricante fabricante = new Fabricante(id, nombre);
-//            fabrocanteList.add(fabricante);
-//        }
-        return fabrocanteList;
+        for (FabricanteEntity fabricanteEntity : (List<FabricanteEntity>) getResultList()) {
+            Fabricante fabricante = new Fabricante(fabricanteEntity.getId(), fabricanteEntity.getNombre());
+            fabricanteList.add(fabricante);
+        }
+        return fabricanteList;
     }
 }

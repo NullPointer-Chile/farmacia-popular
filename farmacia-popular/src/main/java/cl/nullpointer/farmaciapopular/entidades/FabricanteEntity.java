@@ -1,10 +1,10 @@
 package cl.nullpointer.farmaciapopular.entidades;
 
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -13,37 +13,49 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "fabricante")
-@NamedQueries({
-    @NamedQuery(name = "Fabricante.findAll", query = "SELECT f FROM Fabricante f")})
 public class FabricanteEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected FabricantePKEntity fabricantePK;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "nombre")
+    private String nombre;
 
     public FabricanteEntity() {
     }
 
-    public FabricanteEntity(FabricantePKEntity fabricantePK) {
-        this.fabricantePK = fabricantePK;
+    public FabricanteEntity(Integer id) {
+        this.id = id;
     }
 
-    public FabricanteEntity(int id, String nombre) {
-        this.fabricantePK = new FabricantePKEntity(id, nombre);
+    public FabricanteEntity(Integer id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
-    public FabricantePKEntity getFabricantePK() {
-        return fabricantePK;
+    public Integer getId() {
+        return id;
     }
 
-    public void setFabricantePK(FabricantePKEntity fabricantePK) {
-        this.fabricantePK = fabricantePK;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (fabricantePK != null ? fabricantePK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -53,13 +65,12 @@ public class FabricanteEntity implements Serializable {
             return false;
         }
         FabricanteEntity other = (FabricanteEntity) object;
-        return !((this.fabricantePK == null && other.fabricantePK != null) 
-                || (this.fabricantePK != null && !this.fabricantePK.equals(other.fabricantePK)));
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
-        return "cl.nullpointer.farmaciapopular.DAO.Fabricante[ fabricantePK=" + fabricantePK + " ]";
+        return "cl.nullpointer.farmaciapopular.entidades.Fabricante[ id=" + id + " ]";
     }
-    
+
 }
