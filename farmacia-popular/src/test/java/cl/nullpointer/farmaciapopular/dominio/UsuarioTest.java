@@ -114,7 +114,23 @@ public class UsuarioTest {
         Texto nombre = new Texto("Abab");
         String contraseña = "1234";
         Usuario usuario = new Usuario(id, nombre, contraseña);
+        assertEquals(1, usuario.getId());
         assertEquals("ABAB", usuario.getNombre().toString());
+        assertEquals("1234", usuario.getContraseña());
+        assertEquals(true, usuario.estaHabilitado());
+    }
+    
+    /**
+     * Crear usuario y deshabilitarlo.
+     */
+    @Test
+    public void test_DeshabilitarUsuario_OK() {
+        short id = new Short("1");
+        Texto nombre = new Texto("Abab");
+        String contraseña = "1234";
+        Usuario usuario = new Usuario(id, nombre, contraseña);
+        usuario.deshabilitar();
+        assertEquals(false, usuario.estaHabilitado());
     }
 
 }

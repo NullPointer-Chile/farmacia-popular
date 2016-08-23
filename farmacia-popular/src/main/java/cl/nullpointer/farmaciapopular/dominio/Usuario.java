@@ -11,6 +11,7 @@ public class Usuario {
     private final short id;
     private Texto nombre;
     private String contraseña;
+    private boolean habilitado;
 
     public Usuario(short id, Texto nombre, String contraseña) {
         if (id <= 0) {
@@ -19,6 +20,7 @@ public class Usuario {
             this.id = id;
             setNombre(nombre);
             setContraseña(contraseña);
+            habilitado = true;
         }
     }
 
@@ -54,6 +56,14 @@ public class Usuario {
         } else {
             this.contraseña = contraseña;
         }
+    }
+
+    public void deshabilitar() {
+        this.habilitado = false;
+    }
+
+    public boolean estaHabilitado() {
+        return habilitado;
     }
 
 }
