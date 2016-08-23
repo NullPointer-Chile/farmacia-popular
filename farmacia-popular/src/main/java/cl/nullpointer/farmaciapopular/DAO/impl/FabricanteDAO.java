@@ -34,9 +34,24 @@ public class FabricanteDAO extends EclipseLinkDAO {
         List<Fabricante> fabricanteList = new ArrayList<>();
 
         for (FabricanteEntity fabricanteEntity : (List<FabricanteEntity>) getResultList()) {
-            Fabricante fabricante = new Fabricante(fabricanteEntity.getId(), fabricanteEntity.getNombre());
-            fabricanteList.add(fabricante);
+            fabricanteList.add(fabricarUsuario(fabricanteEntity));
         }
+
         return fabricanteList;
+    }
+
+    /**
+     * Construye objetos Fabricante desde la entidad fabricante.
+     *
+     * @param fabricanteEntity
+     * @return un objeto que representa al Fabricante
+     */
+    private Fabricante fabricarUsuario(FabricanteEntity fabricanteEntity) {
+        Fabricante fabricante = new Fabricante(
+                fabricanteEntity.getId(),
+                fabricanteEntity.getNombre()
+        );
+
+        return fabricante;
     }
 }
