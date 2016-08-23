@@ -8,13 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
-
 /**
  * Clase principal de la aplicación.
- * 
+ *
  * @author Omar Paché
  */
 public class Main {
+
     private static final Logger LOG = Logger.getLogger(Main.class);
 
     private static PanelPrincipal ventanaPrincipal;
@@ -22,7 +22,7 @@ public class Main {
     public static PanelPrincipal getVentanaPrincipal() {
         return ventanaPrincipal;
     }
-    
+
     public static void main(String args[]) {
 
         // Establecer apariencia de la aplicación
@@ -43,7 +43,7 @@ public class Main {
         LOG.info("Version JRE: " + System.getProperty("java.version") + " de " + System.getProperty("java.vendor"));
         // Obtiene los valores del archivo de propiedades
         Utils.leerArchivoPropiedades();
-        
+
         // Levantar panel principal
         ventanaPrincipal = new PanelPrincipal();
         ventanaPrincipal.setTitle("Farmacia Popular");
