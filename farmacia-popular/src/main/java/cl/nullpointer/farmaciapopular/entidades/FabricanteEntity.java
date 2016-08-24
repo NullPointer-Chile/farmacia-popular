@@ -1,6 +1,7 @@
 package cl.nullpointer.farmaciapopular.entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class FabricanteEntity implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private short id;
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
@@ -27,20 +28,20 @@ public class FabricanteEntity implements Serializable {
     public FabricanteEntity() {
     }
 
-    public FabricanteEntity(Integer id) {
+    public FabricanteEntity(short id) {
         this.id = id;
     }
 
-    public FabricanteEntity(Integer id, String nombre) {
+    public FabricanteEntity(short id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public Integer getId() {
+    public short getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(short id) {
         this.id = id;
     }
 
@@ -54,18 +55,28 @@ public class FabricanteEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.nombre);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof FabricanteEntity)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        FabricanteEntity other = (FabricanteEntity) object;
-        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FabricanteEntity other = (FabricanteEntity) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return Objects.equals(this.nombre, other.nombre);
     }
 
     @Override
