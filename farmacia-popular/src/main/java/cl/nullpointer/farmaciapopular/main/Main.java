@@ -1,8 +1,9 @@
 package cl.nullpointer.farmaciapopular.main;
 
+import base.utilidades.Aplicacion;
 import base.utilidades.Utils;
-import com.pagosoft.plaf.PlafOptions;
 import cl.nullpointer.farmaciapopular.paneles.PanelPrincipal;
+import com.pagosoft.plaf.PlafOptions;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,16 +24,23 @@ public class Main {
         return ventanaPrincipal;
     }
 
+    public static Aplicacion getAplicacion() {
+        return new Aplicacion();
+    }
+
     public static void main(String args[]) {
 
         // Establecer apariencia de la aplicación
         PlafOptions.setAsLookAndFeel();
         PlafOptions.updateAllUIs();
+
+        // Comprobar que la aplicación no se encuentra corriendo
         if (!Utils.comprobarInstancia()) {
             JOptionPane.showMessageDialog(null, "La aplicación ya está ejecutándose en otra ventana",
                     "Error", JOptionPane.ERROR_MESSAGE);
             Utils.cerrarAplicacion();
         }
+
         LOG.info("Iniciando Aplicacion");
         // Mostrar S.O.
         LOG.info("S.O. cliente: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " "

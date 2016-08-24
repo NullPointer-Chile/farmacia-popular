@@ -1,40 +1,68 @@
 package cl.nullpointer.farmaciapopular.paneles;
 
+import cl.nullpointer.farmaciapopular.main.Main;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Ventana principal de la aplicación con los menús para acceder a las distintas funcionalidades.
  *
  * @author Omar Paché
  */
 public class PanelPrincipal extends JFrame {
 
     /**
-     * Crea el PanelPrincipal
+     * Crea el PanelPrincipal con la barra de menus.
      */
     public PanelPrincipal() {
         initComponents();
     }
 
-    private void configuracion() {
-
-    }
-
+    /**
+     * Se cierra la aplicación.
+     */
     private void salir() {
         System.exit(0);
     }
 
-    private void acercaDe() {
+    /**
+     * Se abre el panel informativo de la aplicación.
+     */
+    private void abrirPanelAcercaDe() {
         JOptionPane.showMessageDialog(null, "Software desarrollado por NullPointer. \nSi tiene dudas escríbanos a "
                 + "contacto@nullpointer.cl", "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void usuarios() {
+    /**
+     * Se abre el panel de configuración de la aplicación.
+     */
+    private void abrirPanelConfiguracion() {
         //TODO
     }
 
-    private void fabricantes() {
+    /**
+     * Se abre el panel mantenedor de usuarios.
+     */
+    private void abrirPanelUsuarios() {
         //TODO
+    }
+
+    /**
+     * Se abre el panel mantenedor de fabricantes.
+     */
+    private void abrirPanelfabricantes() {
+        JFrame mainFrame = Main.getVentanaPrincipal();
+        JDialog dialogFabricantes;
+        dialogFabricantes = new JDialog(mainFrame);
+        dialogFabricantes.setName("dialogFabricantes");
+        dialogFabricantes.setTitle("Listado Fabricantes");
+        dialogFabricantes.setModal(true);
+        dialogFabricantes.setResizable(false);
+        PanelFabricantes panelFabricantes = new PanelFabricantes();
+        dialogFabricantes.setContentPane(panelFabricantes);
+        dialogFabricantes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogFabricantes, true);
     }
 
     @SuppressWarnings("unchecked")
@@ -124,7 +152,7 @@ public class PanelPrincipal extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConfiguracionActionPerformed
-        configuracion();
+        abrirPanelConfiguracion();
     }//GEN-LAST:event_menuItemConfiguracionActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
@@ -132,15 +160,15 @@ public class PanelPrincipal extends JFrame {
     }//GEN-LAST:event_menuItemSalirActionPerformed
 
     private void menuItemAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAcercaDeActionPerformed
-        acercaDe();
+        abrirPanelAcercaDe();
     }//GEN-LAST:event_menuItemAcercaDeActionPerformed
 
     private void menuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuariosActionPerformed
-        usuarios();
+        abrirPanelUsuarios();
     }//GEN-LAST:event_menuUsuariosActionPerformed
 
     private void menuFabricantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFabricantesActionPerformed
-        fabricantes();
+        abrirPanelfabricantes();
     }//GEN-LAST:event_menuFabricantesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
