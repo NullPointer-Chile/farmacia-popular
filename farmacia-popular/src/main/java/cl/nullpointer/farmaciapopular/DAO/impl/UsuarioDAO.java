@@ -52,12 +52,45 @@ public class UsuarioDAO extends EclipseLinkDAO {
         insertar(aEntity(usuario));
     }
 
-    public short obtenerRegistrosActuales() {
+    /**
+     * Modifica un registro existente de usuario en base de datos.
+     *
+     * @param usuario
+     */
+    public void actualizar(Usuario usuario) {
+        if(!existe(usuario)){
+            throw new IllegalStateException("Usuario a actualizar no existe.");
+        } else {
+            actualizar(aEntity(usuario));
+        }
+    }
+
+    /**
+     * Cuenta los registros actuales de usuario en base de datos.
+     *
+     * @return
+     */
+    public short contarRegistros() {
         LOG.debug("Obteniendo registros actuales de usuario.");
         String consulta = " SELECT COUNT(usuario) FROM UsuarioEntity usuario";
         crearQueryTipicaSoloLectura(consulta);
         Long registrosActuales = (Long) getSingleResult();
         return registrosActuales.shortValue();
+    }
+
+    /**
+     * Comprueba si un registro de usuario existe en BD.
+     *
+     * @param usuario
+     * @return
+     */
+    public boolean existe(Usuario usuario) {
+        LOG.debug("Comprobando si existe usuario con id: " + usuario.getId());
+        String consulta = " SELECT COUNT(usuario) FROM UsuarioEntity usuario"
+                + " WHERE usuario.id=:id";
+        crearQueryTipicaSoloLectura(consulta);
+        setParameter("id", usuario.getId());
+        return (Long) getSingleResult() > 0;
     }
 
     /**

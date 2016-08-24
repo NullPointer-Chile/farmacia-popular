@@ -45,10 +45,46 @@ public class UsuarioDAOIT {
         ProcedimientoNoTransaccionalDAO consulta = new DAOManager();
 
         short registrosActuales = (short) consulta.ejecutar((DAOManager DAOManager) -> {
-            return DAOManager.getUsuarioDAO().obtenerRegistrosActuales();
+            return DAOManager.getUsuarioDAO().contarRegistros();
         });
 
         assertTrue(registrosActuales >= 0);
+    }
+
+    /**
+     * Comprobar si usuario que debería existir existe.
+     */
+    @Test
+    public void test_existe_OK() {
+        LOG.info("Comprobando si usuario que debería existir existe.");
+
+        Usuario usuario = new Usuario();
+        usuario.setId(new Short("1"));
+
+        ProcedimientoNoTransaccionalDAO consulta = new DAOManager();
+        boolean existe = (boolean) consulta.ejecutar((DAOManager DAOManager) -> {
+            return DAOManager.getUsuarioDAO().existe(usuario);
+        });
+
+        assertTrue(existe);
+    }
+
+    /**
+     * Comprobar si usuario que no debería existir no existe.
+     */
+    @Test
+    public void test_existe_NOK() {
+        LOG.info("Comprobando si usuario que no debería existir no existe.");
+
+        Usuario usuario = new Usuario();
+        usuario.setId(new Short("1890"));
+
+        ProcedimientoNoTransaccionalDAO consulta = new DAOManager();
+        boolean existe = (boolean) consulta.ejecutar((DAOManager DAOManager) -> {
+            return DAOManager.getUsuarioDAO().existe(usuario);
+        });
+
+        assertFalse(existe);
     }
 
     /**
@@ -62,7 +98,42 @@ public class UsuarioDAOIT {
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setContraseña(contraseña);
-        usuario.insertar();
+        usuario.insertarEnBD();
+    }
+
+    /**
+     * Comprobar actualizacion de usuario que existe.
+     */
+    @Test
+    public void test_actualizar_OK() {
+        LOG.info("Comprobando actualización de usuario que existe.");
+        short id = 4;
+        Texto nombre = new Texto("Mireya Robotechini");
+        String contraseña = "8834";
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.setHabilitado(true);
+        usuario.actualizarEnBD();
+        assertFalse(usuario.actualizarEnBD().isError());
+    }
+
+    /**
+     * Comprobar actualizacion de usuario que no existe.
+     */
+    @Test
+    public void test_actualizar_NOK() {
+        LOG.info("Comprobando actualización de usuario que no existe.");
+        short id = 12345;
+        Texto nombre = new Texto("Mireya Robotechini");
+        String contraseña = "8834";
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.setHabilitado(true);
+        assertTrue(usuario.actualizarEnBD().isError());
     }
 
 }

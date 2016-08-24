@@ -77,7 +77,7 @@ public class Usuario {
      * 
      * @return 
      */
-    public ResultadoMetodo insertar() {
+    public ResultadoMetodo insertarEnBD() {
         if (nombre == null) {
             throw new NullPointerException("Nombre nulo.");
         } else if (contraseña == null) {
@@ -86,10 +86,31 @@ public class Usuario {
             ProcedimientoTransaccionalDAO procedimiento = new DAOManager();
             return (ResultadoMetodo) procedimiento.
                     transaccion((DAOManager DAOManager) -> {
-                        short registrosActuales = DAOManager.getUsuarioDAO().obtenerRegistrosActuales();
+                        short registrosActuales = DAOManager.getUsuarioDAO().contarRegistros();
                         this.setId((short) (registrosActuales + 1));
                         this.setHabilitado(true);
                         DAOManager.getUsuarioDAO().insertar(this);
+                        return ResultadoMetodoImpl.setSinError();
+                    });
+        }
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public ResultadoMetodo actualizarEnBD() {
+        if (id==0){
+            throw new IllegalArgumentException("Id igual a cero.");
+        } else if (nombre == null) {
+            throw new NullPointerException("Nombre nulo.");
+        } else if (contraseña == null) {
+            throw new NullPointerException("Contraseña nula.");
+        } else {
+            ProcedimientoTransaccionalDAO procedimiento = new DAOManager();
+            return (ResultadoMetodo) procedimiento.
+                    transaccion((DAOManager DAOManager) -> {
+                        DAOManager.getUsuarioDAO().actualizar(this);
                         return ResultadoMetodoImpl.setSinError();
                     });
         }
