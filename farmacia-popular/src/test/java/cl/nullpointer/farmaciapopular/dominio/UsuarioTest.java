@@ -9,7 +9,7 @@ import org.junit.Test;
  * @author Cristián Alarcón de la Maza
  */
 public class UsuarioTest {
-    
+
     public UsuarioTest() {
     }
 
@@ -139,5 +139,68 @@ public class UsuarioTest {
         usuario.setHabilitado(false);
         assertEquals(false, usuario.estaHabilitado());
     }
+
+    /**
+     * Insertar usuario con nombre nulo.
+     */
+    @Test(expected = NullPointerException.class)
+    public void test_insertar_nombreNulo() {
+        Texto nombre = null;
+        Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.insertarEnBD();
+    }
     
+    /**
+     * Insertar usuario con contraseña nula.
+     */
+    @Test(expected = NullPointerException.class)
+    public void test_insertar_contraseñaNula() {
+        Texto nombre = new Texto("Abab");
+        String contraseña = null;
+        Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.insertarEnBD();
+    }
+    
+    /**
+     * Actualiza usuario con id 0.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_actualizar_id0() {
+        short id = 0;
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.actualizarEnBD();
+    }
+    
+    /**
+     * Actualiza usuario con nombre nulo.
+     */
+    @Test(expected = NullPointerException.class)
+    public void test_actualizar_nombreNull() {
+        short id = 1;
+        Texto nombre = null;
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.actualizarEnBD();
+    }
+    
+    /**
+     * Actualiza usuario con constraseña nula.
+     */
+    @Test(expected = NullPointerException.class)
+    public void test_actualizar_contraseñaNull() {
+        short id = 1;
+        Texto nombre = new Texto("Abab");
+        String contraseña = null;
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.actualizarEnBD();
+    }
+
 }
