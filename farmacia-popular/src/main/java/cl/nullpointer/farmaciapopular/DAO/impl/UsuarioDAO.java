@@ -44,19 +44,43 @@ public class UsuarioDAO extends EclipseLinkDAO {
     }
 
     /**
-     * Fabrica objetos usuario desde la entidad usuario. Sólo usuarios
-     * habilitados.
+     * Inserta un nuevo registro de usuario en base de datos.
+     *
+     * @param usuario
+     */
+    public void insertar(Usuario usuario) {
+        insertar(aEntity(usuario));
+    }
+
+    public short obtenerRegistrosActuales() {
+        LOG.debug("Obteniendo registros actuales de usuario.");
+        String consulta = " SELECT COUNT(usuario) FROM UsuarioEntity usuario";
+        crearQueryTipicaSoloLectura(consulta);
+        Long registrosActuales = (Long) getSingleResult();
+        return registrosActuales.shortValue();
+    }
+
+    /**
+     * Fabrica objetos usuario desde la entidad usuario.
      *
      * @param usuarioEntity
      * @return
      */
     private Usuario fabricarUsuario(UsuarioEntity usuarioEntity) {
-        Usuario usuario = new Usuario(
-                usuarioEntity.getId(),
-                new Texto(usuarioEntity.getNombre()),
-                usuarioEntity.getContraseña()
-        );
-
+        Usuario usuario = new Usuario();
+        usuario.setId(usuarioEntity.getId());
+        usuario.setNombre(new Texto(usuarioEntity.getNombre()));
+        usuario.setContraseña(usuarioEntity.getContraseña());
+        usuario.setHabilitado(usuarioEntity.getHabilitado() == 1);
         return usuario;
+    }
+
+    private UsuarioEntity aEntity(Usuario usuario) {
+        return new UsuarioEntity(
+                usuario.getId(),
+                usuario.getNombre().toString(),
+                usuario.getContraseña(),
+                usuario.estaHabilitado() ? new Short("1") : new Short("0")
+        );
     }
 }

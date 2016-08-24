@@ -1,6 +1,10 @@
 package cl.nullpointer.farmaciapopular.dominio;
 
 import base.tipoDato.Texto;
+import base.validacion.ResultadoMetodo;
+import base.validacion.impl.ResultadoMetodoImpl;
+import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
+import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
 
 /**
  *
@@ -8,24 +12,24 @@ import base.tipoDato.Texto;
  */
 public class Usuario {
 
-    private final short id;
+    private short id;
     private Texto nombre;
     private String contraseña;
     private boolean habilitado;
 
-    public Usuario(short id, Texto nombre, String contraseña) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("Id usuario menor o igual a cero");
-        } else {
-            this.id = id;
-            setNombre(nombre);
-            setContraseña(contraseña);
-            habilitado = true;
-        }
+    public Usuario() {
     }
 
     public short getId() {
         return id;
+    }
+
+    public void setId(short id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("Id usuario menor o igual a cero");
+        } else {
+            this.id = id;
+        }
     }
 
     public Texto getNombre() {
@@ -49,21 +53,46 @@ public class Usuario {
     public final void setContraseña(String contraseña) {
         if (contraseña == null) {
             throw new NullPointerException("Contraseña nula.");
-        } else if (contraseña.length() < 4) {
-            throw new IllegalArgumentException("Contraseña muy corta.");
-        } else if (contraseña.length() > 8) {
-            throw new IllegalArgumentException("Contraseña muy larga.");
         } else {
-            this.contraseña = contraseña;
+            contraseña = contraseña.trim();
+            if (contraseña.length() < 4) {
+                throw new IllegalArgumentException("Contraseña muy corta.");
+            } else if (contraseña.length() > 8) {
+                throw new IllegalArgumentException("Contraseña muy larga.");
+            } else {
+                this.contraseña = contraseña;
+            }
         }
     }
 
-    public void deshabilitar() {
-        this.habilitado = false;
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
     }
 
     public boolean estaHabilitado() {
         return habilitado;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public ResultadoMetodo insertar() {
+        if (nombre == null) {
+            throw new NullPointerException("Nombre nulo.");
+        } else if (contraseña == null) {
+            throw new NullPointerException("Contraseña nula.");
+        } else {
+            ProcedimientoTransaccionalDAO procedimiento = new DAOManager();
+            return (ResultadoMetodo) procedimiento.
+                    transaccion((DAOManager DAOManager) -> {
+                        short registrosActuales = DAOManager.getUsuarioDAO().obtenerRegistrosActuales();
+                        this.setId((short) (registrosActuales + 1));
+                        this.setHabilitado(true);
+                        DAOManager.getUsuarioDAO().insertar(this);
+                        return ResultadoMetodoImpl.setSinError();
+                    });
+        }
     }
 
 }
