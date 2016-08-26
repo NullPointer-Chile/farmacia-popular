@@ -3,8 +3,11 @@ package cl.nullpointer.farmaciapopular.dominio;
 import base.tipoDato.Texto;
 import base.validacion.ResultadoMetodo;
 import base.validacion.impl.ResultadoMetodoImpl;
+import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
+import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  * Clase que modela al fabricante de un producto.
@@ -13,8 +16,14 @@ import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
  */
 public class Fabricante {
 
+    private static final Logger LOG = Logger.getLogger(Fabricante.class);
+
+    public static short HABILITADO = 1;
+    public static short DESHABILITADO = 0;
+
     private short id;
     private Texto nombre;
+    private short habilitado;
 
     public Fabricante(Texto nombre) {
         if (nombre == null) {
@@ -38,6 +47,14 @@ public class Fabricante {
         return nombre;
     }
 
+    public short getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(short habilitado) {
+        this.habilitado = habilitado;
+    }
+
     /**
      * Insertar un fabricante.
      *
@@ -56,5 +73,38 @@ public class Fabricante {
                 return ResultadoMetodoImpl.setSinError();
             });
         }
+    }
+
+    /**
+     * Deshabilitar un fabricante.
+     *
+     * @param fabricante fabricante a deshabilitar.
+     * @return error o sin error dependiendo el resultado de la operación.
+     */
+    public static ResultadoMetodo deshabilitar(Fabricante fabricante) {
+        LOG.debug("Deshabilitando fabricante");
+
+        // Setear propiedad de habilitado en 0
+        fabricante.setHabilitado(DESHABILITADO);
+
+        ProcedimientoTransaccionalDAO procedimiento = new DAOManager();
+        ResultadoMetodo resultado = (ResultadoMetodo) procedimiento.transaccion((DAOManager daoManager) -> {
+            return daoManager.getFabricanteDAO().deshabilitar(fabricante);
+        });
+
+        return resultado;
+
+    }
+
+    /**
+     * Se obtiene listado de todos los fabricantes.
+     *
+     * @return listado de Fabricantes
+     */
+    public static List<Fabricante> getAll() {
+        ProcedimientoNoTransaccionalDAO consulta = new DAOManager();
+        return (List< Fabricante>) consulta.ejecutar((DAOManager DAOManager) -> {
+            return DAOManager.getFabricanteDAO().getAllFabricantesHabilitados();
+        });
     }
 }

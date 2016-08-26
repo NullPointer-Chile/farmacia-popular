@@ -104,7 +104,7 @@ public class EclipseLinkDAO implements PersistenceDAO {
         }
     }
 
-    public void setParameter(String nombre, Object valor) {
+    public void setParametro(String nombre, Object valor) {
         query.setParameter(nombre, valor);
     }
 

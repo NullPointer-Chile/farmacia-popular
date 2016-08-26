@@ -2,6 +2,7 @@ package cl.nullpointer.farmaciapopular.dominio;
 
 import base.tipoDato.Texto;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -14,6 +15,18 @@ public class FabricanteTest {
     private static final Logger LOG = Logger.getLogger(FabricanteTest.class);
 
     public FabricanteTest() {
+    }
+
+    /**
+     * Crear fabricante con su respectivo nombre
+     */
+    @Test
+    public void test_crearFabricante_OK() {
+        LOG.info("Probando la creacion de un fabricante");
+
+        Texto nombre = new Texto("Samsung");
+        Fabricante fabricante = new Fabricante(nombre);
+        Assert.assertEquals(nombre, fabricante.getNombre());
     }
 
     /**

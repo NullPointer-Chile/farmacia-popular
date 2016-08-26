@@ -1,6 +1,8 @@
 package cl.nullpointer.farmaciapopular.DAO.impl;
 
 import base.tipoDato.Texto;
+import base.validacion.ResultadoMetodo;
+import base.validacion.impl.ResultadoMetodoImpl;
 import cl.nullpointer.farmaciapopular.dominio.Fabricante;
 import cl.nullpointer.farmaciapopular.entidades.FabricanteEntity;
 import java.util.ArrayList;
@@ -22,21 +24,23 @@ public class FabricanteDAO extends EclipseLinkDAO {
     }
 
     /**
-     * Obtener listado con todos los fabricantes.
+     * Obtener listado con todos los fabricantes desde la BD.
      *
      * @return listado de todos los fabricantes encontrados
      */
-    public List<Fabricante> getAllFabricantes() {
+    public List<Fabricante> getAllFabricantesHabilitados() {
         LOG.debug("Ejecutando consulta para obtener fabricantes.");
 
-        String consulta = "SELECT fabricante FROM FabricanteEntity fabricante";
+        String consulta = "SELECT fabricante FROM FabricanteEntity fabricante "
+                + "WHERE fabricante.habilitado = :habilitado";
 
         crearQueryTipica(consulta);
+        setParametro("habilitado", Fabricante.HABILITADO);
 
         List<Fabricante> fabricanteList = new ArrayList<>();
 
         for (FabricanteEntity fabricanteEntity : (List<FabricanteEntity>) getResultList()) {
-            fabricanteList.add(fabricarUsuario(fabricanteEntity));
+            fabricanteList.add(construirFabricante(fabricanteEntity));
         }
 
         return fabricanteList;
@@ -48,10 +52,12 @@ public class FabricanteDAO extends EclipseLinkDAO {
      * @param fabricanteEntity una entidad de tipo fabricante
      * @return un objeto que representa al Fabricante
      */
-    private Fabricante fabricarUsuario(FabricanteEntity fabricanteEntity) {
+    private Fabricante construirFabricante(FabricanteEntity fabricanteEntity) {
         Fabricante fabricante = new Fabricante(
                 new Texto(fabricanteEntity.getNombre())
         );
+        fabricante.setId(fabricanteEntity.getId());
+        fabricante.setHabilitado(fabricanteEntity.getHabilitado());
 
         return fabricante;
     }
@@ -62,7 +68,7 @@ public class FabricanteDAO extends EclipseLinkDAO {
      * @return la cantidad de fabricantes entontrados
      */
     public short contar() {
-        LOG.debug("Obteniendo registros actuales de usuario.");
+        LOG.debug("Obteniendo registros actuales de fabricantes.");
 
         String consulta = " SELECT COUNT(fabricante) FROM FabricanteEntity fabricante";
         crearQueryTipicaSoloLectura(consulta);
@@ -74,10 +80,23 @@ public class FabricanteDAO extends EclipseLinkDAO {
     /**
      * Inserta un nuevo registro de fabricante en BD.
      *
-     * @param fabricante
+     * @param fabricante el objeto fabricante a insertar
+     * @return
      */
-    public void insertar(Fabricante fabricante) {
+    public ResultadoMetodo insertar(Fabricante fabricante) {
         insertar(toEntity(fabricante));
+        return ResultadoMetodoImpl.setSinError();
+    }
+
+    /**
+     * Deshabilitar un fabricante.
+     *
+     * @param fabricante el objeto fabricante a deshabilitar
+     * @return
+     */
+    public ResultadoMetodo deshabilitar(Fabricante fabricante) {
+        super.actualizar(toEntity(fabricante));
+        return ResultadoMetodoImpl.setSinError();
     }
 
     /**
@@ -87,9 +106,12 @@ public class FabricanteDAO extends EclipseLinkDAO {
      * @return la entidad fabricante
      */
     private FabricanteEntity toEntity(Fabricante fabricante) {
-        return new FabricanteEntity(
+        FabricanteEntity fabricanteEntity = new FabricanteEntity(
                 fabricante.getId(),
                 fabricante.getNombre().toString()
         );
+        fabricanteEntity.setHabilitado(fabricante.getHabilitado());
+
+        return fabricanteEntity;
     }
 }

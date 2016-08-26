@@ -1,6 +1,6 @@
 package cl.nullpointer.farmaciapopular.entidades;
 
-import java.io.Serializable;
+import base.paneles.PanelBase;
 import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,9 +14,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "fabricante")
-public class FabricanteEntity implements Serializable {
+public class FabricanteEntity extends PanelBase {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
@@ -24,6 +23,9 @@ public class FabricanteEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
+    @Basic(optional = false)
+    @Column(name = "habilitado")
+    private short habilitado;
 
     public FabricanteEntity() {
     }
@@ -51,6 +53,14 @@ public class FabricanteEntity implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public short getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(short habilitado) {
+        this.habilitado = habilitado;
     }
 
     @Override
@@ -81,7 +91,7 @@ public class FabricanteEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "cl.nullpointer.farmaciapopular.entidades.Fabricante[ id=" + id + " ]";
+        return "id fabricante: " + id;
     }
 
 }

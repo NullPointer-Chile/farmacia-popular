@@ -89,7 +89,7 @@ public class UsuarioDAO extends EclipseLinkDAO {
         String consulta = " SELECT COUNT(usuario) FROM UsuarioEntity usuario"
                 + " WHERE usuario.id=:id";
         crearQueryTipicaSoloLectura(consulta);
-        setParameter("id", usuario.getId());
+        setParametro("id", usuario.getId());
         return (Long) getSingleResult() > 0;
     }
 

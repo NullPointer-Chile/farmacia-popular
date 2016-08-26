@@ -31,7 +31,7 @@ public class FabricanteDAOIT {
         ProcedimientoNoTransaccionalDAO consulta = new DAOManager();
 
         List<Fabricante> fabricanteList = (List<Fabricante>) consulta.ejecutar((DAOManager DAOManager) -> {
-            return DAOManager.getFabricanteDAO().getAllFabricantes();
+            return DAOManager.getFabricanteDAO().getAllFabricantesHabilitados();
         });
 
         assertNotNull(fabricanteList);

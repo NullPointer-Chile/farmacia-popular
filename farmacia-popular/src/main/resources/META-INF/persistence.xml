@@ -5,7 +5,7 @@
     <class>cl.nullpointer.farmaciapopular.entidades.UsuarioEntity</class>
     <class>cl.nullpointer.farmaciapopular.entidades.FabricanteEntity</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.8.100:3306/dbFarmaPopular?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.8.101:3306/dbFarmaPopular?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="toor"/>
