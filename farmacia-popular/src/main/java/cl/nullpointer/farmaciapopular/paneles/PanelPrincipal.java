@@ -45,7 +45,17 @@ public class PanelPrincipal extends JFrame {
      * Se abre el panel mantenedor de usuarios.
      */
     private void abrirPanelUsuarios() {
-        //TODO
+        JFrame mainFrame = Main.getVentanaPrincipal();
+        JDialog dialogUsuarios;
+        dialogUsuarios = new JDialog(mainFrame);
+        dialogUsuarios.setName("dialogUsuarios");
+        dialogUsuarios.setTitle("Listado Usuarios Activos");
+        dialogUsuarios.setModal(true);
+        dialogUsuarios.setResizable(false);
+        PanelUsuarios panelUsuarios = new PanelUsuarios();
+        dialogUsuarios.setContentPane(panelUsuarios);
+        dialogUsuarios.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogUsuarios, true);
     }
 
     /**
