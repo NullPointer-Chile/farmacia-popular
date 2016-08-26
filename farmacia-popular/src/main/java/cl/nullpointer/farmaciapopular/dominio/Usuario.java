@@ -6,6 +6,8 @@ import base.validacion.impl.ResultadoMetodoImpl;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
@@ -13,6 +15,11 @@ import java.util.List;
  * @author Cristián Alarcón de la Maza
  */
 public class Usuario {
+
+    private static final int LARGO_MINIMO_NOMBRE = 4;
+    private static final int LARGO_MAXIMO_NOMBRE = 30;
+
+    private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private short id;
     private Texto nombre;
@@ -38,13 +45,17 @@ public class Usuario {
         return nombre;
     }
 
-    public final void setNombre(Texto nombre) {
+    public final ResultadoMetodo setNombre(Texto nombre) {
         if (nombre == null) {
             throw new NullPointerException("Nombre usuario nulo.");
-        } else if (nombre.validarLargo(4, 30).isError()) {
-            throw new IllegalArgumentException(nombre.validarLargo(4, 30).getMensaje());
         } else {
-            this.nombre = nombre;
+            ResultadoMetodo resultadoMetodo = nombre.validarLargo(LARGO_MINIMO_NOMBRE, LARGO_MAXIMO_NOMBRE);
+            if (resultadoMetodo.isError()) {
+                return resultadoMetodo;
+            } else {
+                this.nombre = nombre;
+                return ResultadoMetodoImpl.setSinError();
+            }
         }
     }
 
@@ -127,6 +138,19 @@ public class Usuario {
                         return ResultadoMetodoImpl.setSinError();
                     });
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

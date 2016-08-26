@@ -1,6 +1,7 @@
 package cl.nullpointer.farmaciapopular.dominio;
 
 import base.tipoDato.Texto;
+import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -44,25 +45,23 @@ public class UsuarioTest {
     }
 
     /**
-     * Crear usuario con largo nombre menor a 4. Debería lanzar excepción
-     * illegalargument.
+     * Crear usuario con largo nombre menor a 4. Debería ser error.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_CrearUsuario_NombreCorto() {
         Texto nombre = new Texto("per");
         Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
+        Assert.assertTrue(usuario.setNombre(nombre).isError());
     }
 
     /**
-     * Crear usuario con largo nombre mayor a 30. Debería lanzar excepción
-     * illegalargument.
+     * Crear usuario con largo nombre mayor a 30. Debería ser error.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_CrearUsuario_NombreLargo() {
         Texto nombre = new Texto("cuando el sol sale en la montaña las ovejas comen pasto");
         Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
+        Assert.assertTrue(usuario.setNombre(nombre).isError());
     }
 
     /**
@@ -150,7 +149,7 @@ public class UsuarioTest {
         usuario.setNombre(nombre);
         usuario.insertarEnBD();
     }
-    
+
     /**
      * Insertar usuario con contraseña nula.
      */
@@ -163,7 +162,7 @@ public class UsuarioTest {
         usuario.setContraseña(contraseña);
         usuario.insertarEnBD();
     }
-    
+
     /**
      * Actualiza usuario con id 0.
      */
@@ -174,7 +173,7 @@ public class UsuarioTest {
         usuario.setId(id);
         usuario.actualizarEnBD();
     }
-    
+
     /**
      * Actualiza usuario con nombre nulo.
      */
@@ -187,7 +186,7 @@ public class UsuarioTest {
         usuario.setNombre(nombre);
         usuario.actualizarEnBD();
     }
-    
+
     /**
      * Actualiza usuario con constraseña nula.
      */
