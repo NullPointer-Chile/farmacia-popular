@@ -36,7 +36,7 @@ public class Main {
         PlafOptions.setAsLookAndFeel();
         PlafOptions.updateAllUIs();
 
-        setUIFont(new javax.swing.plaf.FontUIResource("UnDotum", Font.PLAIN, 13));
+        setUIFont(new javax.swing.plaf.FontUIResource("UnDotum", Font.PLAIN, 14));
 
         // Comprobar que la aplicación no se encuentra corriendo
         if (!Utils.comprobarInstancia()) {
