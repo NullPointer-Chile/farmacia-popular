@@ -1,6 +1,7 @@
 package cl.nullpointer.farmaciapopular.paneles;
 
 import cl.nullpointer.farmaciapopular.main.Main;
+import java.awt.Dimension;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -51,6 +52,7 @@ public class PanelPrincipal extends JFrame {
         dialogUsuarios.setName("dialogUsuarios");
         dialogUsuarios.setTitle("Listado Usuarios Activos");
         dialogUsuarios.setModal(true);
+        dialogUsuarios.setPreferredSize(new Dimension(350, 600));
         dialogUsuarios.setResizable(false);
         PanelUsuarios panelUsuarios = new PanelUsuarios();
         dialogUsuarios.setContentPane(panelUsuarios);
