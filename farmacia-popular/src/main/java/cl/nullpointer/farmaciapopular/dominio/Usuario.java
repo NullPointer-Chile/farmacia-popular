@@ -3,8 +3,10 @@ package cl.nullpointer.farmaciapopular.dominio;
 import base.tipoDato.Texto;
 import base.validacion.ResultadoMetodo;
 import base.validacion.impl.ResultadoMetodoImpl;
+import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
+import java.util.List;
 
 /**
  *
@@ -74,8 +76,19 @@ public class Usuario {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
+     */
+    public static List<Usuario> getUsuariosHabilitadosBD() {
+        ProcedimientoNoTransaccionalDAO consulta = new DAOManager();
+        return (List< Usuario>) consulta.ejecutar((DAOManager DAOManager) -> {
+            return DAOManager.getUsuarioDAO().getUsuariosHabilitados();
+        });
+    }
+
+    /**
+     *
+     * @return
      */
     public ResultadoMetodo insertarEnBD() {
         if (nombre == null) {
@@ -94,13 +107,13 @@ public class Usuario {
                     });
         }
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public ResultadoMetodo actualizarEnBD() {
-        if (id==0){
+        if (id == 0) {
             throw new IllegalArgumentException("Id igual a cero.");
         } else if (nombre == null) {
             throw new NullPointerException("Nombre nulo.");
