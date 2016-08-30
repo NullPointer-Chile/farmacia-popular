@@ -4,13 +4,13 @@ import base.paneles.AtajoDeTeclado;
 import base.paneles.PanelBase;
 import cl.nullpointer.farmaciapopular.dominio.Usuario;
 import cl.nullpointer.farmaciapopular.main.Main;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import org.jdesktop.observablecollections.ObservableCollections;
 
@@ -49,7 +49,6 @@ public class PanelUsuarios extends PanelBase {
     private void activarAtajosTeclado() {
         AtajoDeTeclado atajo = new AtajoDeTeclado(this);
         atajo.agregarAtajoSalirDialog();
-
         atajo.agregarAtajoBotonNuevo(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -60,6 +59,12 @@ public class PanelUsuarios extends PanelBase {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 botonModificarActionPerformed(evt);
+            }
+        });
+        atajo.agregarAtajoBotonEliminar(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
             }
         });
     }
@@ -157,7 +162,19 @@ public class PanelUsuarios extends PanelBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
-        // TODO add your handling code here:
+        JFrame mainFrame = Main.getVentanaPrincipal();
+        JDialog dialogUsuario;
+        dialogUsuario = new JDialog(mainFrame);
+        dialogUsuario.setName("dialogUsuario");
+        dialogUsuario.setTitle("Nuevo Usuario");
+        dialogUsuario.setModal(true);
+        dialogUsuario.setResizable(false);
+        PanelUsuario panelUsuario = new PanelUsuario(new Usuario(), true);
+        dialogUsuario.setContentPane(panelUsuario);
+        dialogUsuario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogUsuario, true);
+
+        refrescar();
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
@@ -170,21 +187,31 @@ public class PanelUsuarios extends PanelBase {
             dialogUsuario.setTitle("Modificar Usuario");
             dialogUsuario.setModal(true);
             dialogUsuario.setResizable(false);
-            PanelUsuario panelUsuario = new PanelUsuario(usuario);
+            PanelUsuario panelUsuario = new PanelUsuario(usuario, false);
             dialogUsuario.setContentPane(panelUsuario);
             dialogUsuario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             Main.getAplicacion().show(dialogUsuario, true);
-            
+
             refrescar();
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        Usuario usuario = getUsuarioSeleccionado();
+        if (usuario != null && JOptionPane.showConfirmDialog(
+                this,
+                "¿Realmente desea borrar al usuario " + usuario.getNombre().toString() + "?",
+                "ATENCIÓN",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            usuario.setHabilitado(false);
+            usuario.actualizarEnBD();
 
+            refrescar();
+        }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void masterTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_masterTableMouseClicked
-        if(hizoDobleClic(evt)){
+        if (hizoDobleClic(evt)) {
             botonModificarActionPerformed(null);
         }
     }//GEN-LAST:event_masterTableMouseClicked

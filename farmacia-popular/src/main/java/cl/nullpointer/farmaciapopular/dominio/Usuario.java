@@ -16,8 +16,10 @@ import java.util.List;
  */
 public class Usuario {
 
-    private static final int LARGO_MINIMO_NOMBRE = 4;
-    private static final int LARGO_MAXIMO_NOMBRE = 30;
+    public static final int LARGO_MINIMO_NOMBRE = 4;
+    public static final int LARGO_MAXIMO_NOMBRE = 30;
+    public static final int LARGO_MINIMO_CONTRASEÑA = 4;
+    public static final int LARGO_MAXIMO_CONTRASEÑA = 8;
 
     private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -63,17 +65,18 @@ public class Usuario {
         return contraseña;
     }
 
-    public final void setContraseña(String contraseña) {
+    public final ResultadoMetodo setContraseña(String contraseña) {
         if (contraseña == null) {
             throw new NullPointerException("Contraseña nula.");
         } else {
             contraseña = contraseña.trim();
-            if (contraseña.length() < 4) {
-                throw new IllegalArgumentException("Contraseña muy corta.");
-            } else if (contraseña.length() > 8) {
-                throw new IllegalArgumentException("Contraseña muy larga.");
+            if (contraseña.length() < LARGO_MINIMO_CONTRASEÑA) {
+                return ResultadoMetodoImpl.setError("Contraseña muy corta.");
+            } else if (contraseña.length() > LARGO_MAXIMO_CONTRASEÑA) {
+                return ResultadoMetodoImpl.setError("Contraseña muy larga.");
             } else {
                 this.contraseña = contraseña;
+                return ResultadoMetodoImpl.setSinError();
             }
         }
     }

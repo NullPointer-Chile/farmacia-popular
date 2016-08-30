@@ -75,25 +75,23 @@ public class UsuarioTest {
     }
 
     /**
-     * Crear usuario con largo contraseña menor a 4. Debería lanzar excepción
-     * illegalargument.
+     * Crear usuario con largo contraseña menor a 4. Debería ser error.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_CrearUsuario_ContraseñaCorta() {
         String contraseña = "tin";
         Usuario usuario = new Usuario();
-        usuario.setContraseña(contraseña);
+        Assert.assertTrue(usuario.setContraseña(contraseña).isError());
     }
 
     /**
-     * Crear usuario con largo contraseña mayor a 8. Debería lanzar excepción
-     * illegalargument.
+     * Crear usuario con largo contraseña mayor a 8. Debería ser error.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_CrearUsuario_ContraseñaLarga() {
         String contraseña = "tin pun ron";
         Usuario usuario = new Usuario();
-        usuario.setContraseña(contraseña);
+        Assert.assertTrue(usuario.setContraseña(contraseña).isError());
     }
 
     /**
