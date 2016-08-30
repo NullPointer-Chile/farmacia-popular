@@ -1,10 +1,14 @@
 package cl.nullpointer.farmaciapopular.paneles;
 
+import base.paneles.AtajoDeTeclado;
 import base.paneles.PanelBase;
 import base.validacion.ResultadoMetodo;
 import cl.nullpointer.farmaciapopular.dominio.Fabricante;
+import cl.nullpointer.farmaciapopular.main.Main;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -18,8 +22,8 @@ public class PanelFabricantes extends PanelBase {
     private static final Logger LOG = Logger.getLogger(PanelFabricantes.class);
 
     // Definiendo el indice de las columnas de la tabla
-    private final int columnaID = 0;
-    private final int columnaNombre = 1;
+    private static final int COLUMNA_ID = 0;
+    private static final int COLUMNA_NOMBRE = 1;
 
     /**
      * Crear un nuevo Panel Fabricantes.
@@ -27,6 +31,7 @@ public class PanelFabricantes extends PanelBase {
     public PanelFabricantes() {
         initComponents();
         setLookAndFeel();
+        activarAtajosTeclado();
         refrescarTabla();
     }
 
@@ -36,9 +41,17 @@ public class PanelFabricantes extends PanelBase {
     private void setLookAndFeel() {
         botonNuevo.setToolTipText("Crear nuevo fabricante");
         botonEliminar.setToolTipText("Eliminar fabricante seleccionado");
-        tablaFabricantes.getColumnModel().getColumn(columnaID).setPreferredWidth(50);
-        tablaFabricantes.getColumnModel().getColumn(columnaNombre).setPreferredWidth(250);
-        centrarColumna(tablaFabricantes, columnaID);
+        tablaFabricantes.getColumnModel().getColumn(COLUMNA_ID).setPreferredWidth(50);
+        tablaFabricantes.getColumnModel().getColumn(COLUMNA_NOMBRE).setPreferredWidth(250);
+        centrarColumna(tablaFabricantes, COLUMNA_ID);
+    }
+
+    /**
+     * Activar los atajos de teclado.
+     */
+    private void activarAtajosTeclado() {
+        AtajoDeTeclado atajo = new AtajoDeTeclado(this);
+        atajo.agregarAtajoSalirDialog();
     }
 
     /**
@@ -49,8 +62,21 @@ public class PanelFabricantes extends PanelBase {
         fabricantesList.addAll(Fabricante.getAll());
     }
 
-    private void nuevo() {
-
+    /**
+     * Abrir panel para crear nuevo usuario.
+     */
+    private void abrirPanelNuevo() {
+        JFrame mainFrame = Main.getVentanaPrincipal();
+        JDialog dialogFabricante;
+        dialogFabricante = new JDialog(mainFrame);
+        dialogFabricante.setName("dialogFabricante");
+        dialogFabricante.setTitle("Nuevo Fabricante");
+        dialogFabricante.setModal(true);
+        dialogFabricante.setResizable(false);
+        PanelFabricante panelFabricante = new PanelFabricante();
+        dialogFabricante.setContentPane(panelFabricante);
+        dialogFabricante.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogFabricante, true);
     }
 
     private void deshabilitar() {
@@ -159,7 +185,7 @@ public class PanelFabricantes extends PanelBase {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
-        nuevo();
+        abrirPanelNuevo();
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed

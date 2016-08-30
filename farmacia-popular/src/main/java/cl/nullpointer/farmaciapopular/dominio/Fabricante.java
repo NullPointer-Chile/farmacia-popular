@@ -85,7 +85,7 @@ public class Fabricante {
         LOG.debug("Deshabilitando fabricante");
 
         // Setear propiedad de habilitado en 0
-        fabricante.setHabilitado(DESHABILITADO);
+        fabricante.setHabilitado((short) 0);
 
         ProcedimientoTransaccionalDAO procedimiento = new DAOManager();
         ResultadoMetodo resultado = (ResultadoMetodo) procedimiento.transaccion((DAOManager daoManager) -> {
