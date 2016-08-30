@@ -29,14 +29,7 @@ public class Fabricante {
     private Texto nombre;
     private short habilitado;
 
-    public Fabricante(Texto nombre) {
-        if (nombre == null) {
-            throw new NullPointerException("Nombre fabricante nulo.");
-        } else if (nombre.validarLargo(4, 30).isError()) {
-            throw new IllegalArgumentException(nombre.validarLargo(4, 30).getMensaje());
-        } else {
-            this.nombre = nombre;
-        }
+    public Fabricante() {
     }
 
     public short getId() {
@@ -49,6 +42,16 @@ public class Fabricante {
 
     public Texto getNombre() {
         return nombre;
+    }
+
+    public void setNombre(Texto nombre) {
+        if (nombre == null) {
+            throw new NullPointerException("Nombre fabricante nulo.");
+        } else if (nombre.validarLargo(4, 30).isError()) {
+            throw new IllegalArgumentException(nombre.validarLargo(4, 30).getMensaje());
+        } else {
+            this.nombre = nombre;
+        }
     }
 
     public short getHabilitado() {

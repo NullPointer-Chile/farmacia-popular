@@ -63,7 +63,8 @@ public class FabricanteDAOIT {
         LOG.info("Comprobando inserción de un fabricante.");
 
         Texto nombre = new Texto("Bayer");
-        Fabricante fabricante = new Fabricante(nombre);
+        Fabricante fabricante = new Fabricante();
+        fabricante.setNombre(nombre);
         fabricante.setHabilitado((short) 1);
         fabricante.insertar();
     }

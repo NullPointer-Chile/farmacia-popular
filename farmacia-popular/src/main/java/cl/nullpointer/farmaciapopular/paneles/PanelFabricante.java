@@ -67,7 +67,8 @@ public class PanelFabricante extends PanelBase {
         LOG.info("Creando fabricante");
 
         Texto nombre = new Texto(textNombre.getText());
-        fabricante = new Fabricante(nombre);
+        fabricante = new Fabricante();
+        fabricante.setNombre(nombre);
         fabricante.setHabilitado(Fabricante.HABILITADO);
 
         ResultadoMetodo resultadoGuardar = fabricante.insertar();

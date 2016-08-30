@@ -53,10 +53,9 @@ public class FabricanteDAO extends EclipseLinkDAO {
      * @return un objeto que representa al Fabricante
      */
     private Fabricante construirFabricante(FabricanteEntity fabricanteEntity) {
-        Fabricante fabricante = new Fabricante(
-                new Texto(fabricanteEntity.getNombre())
-        );
+        Fabricante fabricante = new Fabricante();
         fabricante.setId(fabricanteEntity.getId());
+        fabricante.setNombre(new Texto(fabricanteEntity.getNombre()));
         fabricante.setHabilitado(fabricanteEntity.getHabilitado());
 
         return fabricante;

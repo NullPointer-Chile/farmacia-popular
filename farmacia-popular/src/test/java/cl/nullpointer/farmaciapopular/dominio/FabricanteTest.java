@@ -25,7 +25,8 @@ public class FabricanteTest {
         LOG.info("Probando la creacion de un fabricante");
 
         Texto nombre = new Texto("Samsung");
-        Fabricante fabricante = new Fabricante(nombre);
+        Fabricante fabricante = new Fabricante();
+        fabricante.setNombre(nombre);
         Assert.assertEquals(nombre, fabricante.getNombre());
     }
 
@@ -37,7 +38,8 @@ public class FabricanteTest {
         LOG.info("Fallando la creacion de un fabricante por nombre nulo");
 
         Texto nombre = null;
-        Fabricante fabricante = new Fabricante(nombre);
+        Fabricante fabricante = new Fabricante();
+        fabricante.setNombre(nombre);
     }
 
     /**
@@ -48,7 +50,8 @@ public class FabricanteTest {
         LOG.info("Fallando la creacion de un fabricante por nombre demasiado corto");
 
         Texto nombre = new Texto("a");
-        Fabricante fabricante = new Fabricante(nombre);
+        Fabricante fabricante = new Fabricante();
+        fabricante.setNombre(nombre);
     }
 
     /**
@@ -59,7 +62,8 @@ public class FabricanteTest {
         LOG.info("Fallando la creacion de un fabricante por nombre demasiado largo");
 
         Texto nombre = new Texto("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        Fabricante fabricante = new Fabricante(nombre);
+        Fabricante fabricante = new Fabricante();
+        fabricante.setNombre(nombre);
     }
 
 }
