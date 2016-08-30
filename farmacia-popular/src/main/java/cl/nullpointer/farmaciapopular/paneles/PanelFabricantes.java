@@ -5,8 +5,10 @@ import base.paneles.PanelBase;
 import base.validacion.ResultadoMetodo;
 import cl.nullpointer.farmaciapopular.dominio.Fabricante;
 import cl.nullpointer.farmaciapopular.main.Main;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.AbstractAction;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -40,6 +42,7 @@ public class PanelFabricantes extends PanelBase {
      */
     private void setLookAndFeel() {
         botonNuevo.setToolTipText("Crear nuevo fabricante");
+        botonModificar.setToolTipText("Mdificar fabricante seleccionado");
         botonEliminar.setToolTipText("Eliminar fabricante seleccionado");
         tablaFabricantes.getColumnModel().getColumn(COLUMNA_ID).setPreferredWidth(50);
         tablaFabricantes.getColumnModel().getColumn(COLUMNA_NOMBRE).setPreferredWidth(250);
@@ -52,6 +55,19 @@ public class PanelFabricantes extends PanelBase {
     private void activarAtajosTeclado() {
         AtajoDeTeclado atajo = new AtajoDeTeclado(this);
         atajo.agregarAtajoSalirDialog();
+
+        atajo.agregarAtajoBotonModificar(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
+        atajo.agregarAtajoBotonEliminar(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
     }
 
     /**
@@ -77,6 +93,25 @@ public class PanelFabricantes extends PanelBase {
         dialogFabricante.setContentPane(panelFabricante);
         dialogFabricante.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Main.getAplicacion().show(dialogFabricante, true);
+        refrescarTabla();
+    }
+
+    /**
+     * Abrir panel para modificar fabricante seleccionado.
+     */
+    private void abrirPanelModificar() {
+        JFrame mainFrame = Main.getVentanaPrincipal();
+        JDialog dialogFabricante;
+        dialogFabricante = new JDialog(mainFrame);
+        dialogFabricante.setName("dialogFabricante");
+        dialogFabricante.setTitle("Modificar Fabricante");
+        dialogFabricante.setModal(true);
+        dialogFabricante.setResizable(false);
+        PanelFabricante panelFabricante = new PanelFabricante(getFabricanteSeleccionado());
+        dialogFabricante.setContentPane(panelFabricante);
+        dialogFabricante.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogFabricante, true);
+        refrescarTabla();
     }
 
     private void deshabilitar() {
@@ -126,6 +161,7 @@ public class PanelFabricantes extends PanelBase {
         tablaFabricantes = new javax.swing.JTable();
         botonEliminar = new javax.swing.JButton();
         botonNuevo = new javax.swing.JButton();
+        botonModificar = new javax.swing.JButton();
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, fabricantesList, tablaFabricantes);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
@@ -138,6 +174,11 @@ public class PanelFabricantes extends PanelBase {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        tablaFabricantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaFabricantesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaFabricantes);
 
         botonEliminar.setText("Eliminar");
@@ -154,6 +195,13 @@ public class PanelFabricantes extends PanelBase {
             }
         });
 
+        botonModificar.setText("Modificar");
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,6 +214,8 @@ public class PanelFabricantes extends PanelBase {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botonNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonEliminar)))
                 .addContainerGap())
         );
@@ -177,7 +227,8 @@ public class PanelFabricantes extends PanelBase {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEliminar)
-                    .addComponent(botonNuevo))
+                    .addComponent(botonNuevo)
+                    .addComponent(botonModificar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -192,8 +243,19 @@ public class PanelFabricantes extends PanelBase {
         deshabilitar();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        abrirPanelModificar();
+    }//GEN-LAST:event_botonModificarActionPerformed
+
+    private void tablaFabricantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFabricantesMouseClicked
+        if (hizoDobleClic(evt)) {
+            abrirPanelModificar();
+        }
+    }//GEN-LAST:event_tablaFabricantesMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonModificar;
     private javax.swing.JButton botonNuevo;
     private java.util.List<Fabricante> fabricantesList;
     private javax.swing.JScrollPane jScrollPane1;

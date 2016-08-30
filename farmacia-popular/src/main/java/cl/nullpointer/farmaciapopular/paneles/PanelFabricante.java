@@ -2,15 +2,21 @@ package cl.nullpointer.farmaciapopular.paneles;
 
 import base.paneles.AtajoDeTeclado;
 import base.paneles.PanelBase;
+import base.tipoDato.Texto;
+import base.validacion.ResultadoMetodo;
 import cl.nullpointer.farmaciapopular.dominio.Fabricante;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Omar Paché
  */
 public class PanelFabricante extends PanelBase {
+
+    private static final Logger LOG = Logger.getLogger(PanelFabricante.class);
 
     private Fabricante fabricante;
 
@@ -33,7 +39,7 @@ public class PanelFabricante extends PanelBase {
      * Establecer propiedades de componentes graficos.
      */
     private void setLookAndFeel() {
-//        setPlaceholder(textNombre, "Nombre del fabricante.");
+        botonGuardar.setToolTipText("Guardar Fabricante");
     }
 
     /**
@@ -54,8 +60,26 @@ public class PanelFabricante extends PanelBase {
         });
     }
 
+    /**
+     * Se crea y guarda un fabricante.
+     */
     private void guardar() {
+        LOG.info("Creando fabricante");
 
+        Texto nombre = new Texto(textNombre.getText());
+        fabricante = new Fabricante(nombre);
+        fabricante.setHabilitado(Fabricante.HABILITADO);
+
+        ResultadoMetodo resultadoGuardar = fabricante.insertar();
+
+        if (resultadoGuardar.isError()) {
+            String mensaje = resultadoGuardar.getMensaje();
+            LOG.info(mensaje);
+            JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            LOG.info("Fabricante creado con exito");
+            cerrarVentana();
+        }
     }
 
     @SuppressWarnings("unchecked")

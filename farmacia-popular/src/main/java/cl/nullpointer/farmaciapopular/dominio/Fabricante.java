@@ -6,6 +6,8 @@ import base.validacion.impl.ResultadoMetodoImpl;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoNoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -20,6 +22,8 @@ public class Fabricante {
 
     public static short HABILITADO = 1;
     public static short DESHABILITADO = 0;
+
+    private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private short id;
     private Texto nombre;
@@ -106,5 +110,18 @@ public class Fabricante {
         return (List< Fabricante>) consulta.ejecutar((DAOManager DAOManager) -> {
             return DAOManager.getFabricanteDAO().getAllFabricantesHabilitados();
         });
+    }
+
+    @Override
+    public String toString() {
+        return nombre.toString();
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 }

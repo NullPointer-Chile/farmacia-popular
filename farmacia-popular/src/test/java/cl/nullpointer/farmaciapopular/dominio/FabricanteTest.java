@@ -61,4 +61,5 @@ public class FabricanteTest {
         Texto nombre = new Texto("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Fabricante fabricante = new Fabricante(nombre);
     }
+
 }
