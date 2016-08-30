@@ -6,7 +6,6 @@ import cl.nullpointer.farmaciapopular.paneles.PanelPrincipal;
 import com.pagosoft.plaf.PlafOptions;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Enumeration;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
@@ -40,8 +39,6 @@ public class Main {
         PlafOptions.updateAllUIs();
 
         UIDefaults defaults = UIManager.getDefaults();
-        Enumeration newKeys = defaults.keys();
-        
         defaults.put("Panel.background", new ColorUIResource(Color.white));
 
         // Comprobar que la aplicación no se encuentra corriendo

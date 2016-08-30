@@ -200,4 +200,55 @@ public class UsuarioTest {
         usuario.actualizarEnBD();
     }
 
+    /**
+     * Valida contraseña con contraseña nula. Excepción nullpointer.
+     */
+    @Test(expected = NullPointerException.class)
+    public void test_validarContraseña_contraseñaNull() {
+        short id = new Short("1");
+        Texto nombre = new Texto("Abab");
+        String contraseña = "1234";
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.setHabilitado(true);
+
+        usuario.validarContraseña(null);
+    }
+
+    /**
+     * Valida contraseña con contraseña incorrecta. Lanza error.
+     */
+    @Test
+    public void test_validarContraseña_contraseñaIncorrecta() {
+        short id = new Short("1");
+        Texto nombre = new Texto("Abab");
+        String contraseña = "1234";
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.setHabilitado(true);
+
+        Assert.assertTrue(usuario.validarContraseña("mala".toCharArray()).isError());
+    }
+    
+    /**
+     * Valida contraseña con contraseña correcta.
+     */
+    @Test
+    public void test_validarContraseña_contraseñaCorrecta() {
+        short id = new Short("1");
+        Texto nombre = new Texto("Abab");
+        String contraseña = "1234";
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNombre(nombre);
+        usuario.setContraseña(contraseña);
+        usuario.setHabilitado(true);
+
+        Assert.assertFalse(usuario.validarContraseña("1234".toCharArray()).isError());
+    }
+
 }

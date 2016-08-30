@@ -1,5 +1,6 @@
 package cl.nullpointer.farmaciapopular.paneles;
 
+import cl.nullpointer.farmaciapopular.dominio.Usuario;
 import cl.nullpointer.farmaciapopular.main.Main;
 import java.awt.Dimension;
 import javax.swing.JDialog;
@@ -18,6 +19,18 @@ public class PanelPrincipal extends JFrame {
      */
     public PanelPrincipal() {
         initComponents();
+        
+        JDialog dialogAutenticacion;
+        dialogAutenticacion = new JDialog(this);
+        dialogAutenticacion.setName("dialogAutenticacion");
+        dialogAutenticacion.setTitle("Autenticación Usuario");
+        dialogAutenticacion.setModal(true);
+        dialogAutenticacion.setResizable(false);
+        PanelAutenticacion panelAutenticacion = new PanelAutenticacion();
+        dialogAutenticacion.setContentPane(panelAutenticacion);
+        dialogAutenticacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogAutenticacion, true);
+        
     }
 
     /**

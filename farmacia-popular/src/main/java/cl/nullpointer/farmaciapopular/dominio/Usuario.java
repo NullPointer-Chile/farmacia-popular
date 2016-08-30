@@ -8,6 +8,7 @@ import cl.nullpointer.farmaciapopular.DAO.ProcedimientoTransaccionalDAO;
 import cl.nullpointer.farmaciapopular.DAO.impl.DAOManager;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,8 +19,8 @@ public class Usuario {
 
     public static final int LARGO_MINIMO_NOMBRE = 4;
     public static final int LARGO_MAXIMO_NOMBRE = 30;
-    public static final int LARGO_MINIMO_CONTRASEÑA = 4;
-    public static final int LARGO_MAXIMO_CONTRASEÑA = 8;
+    public static final int LARGO_MINIMO_CONTRASENA = 4;
+    public static final int LARGO_MAXIMO_CONTRASENA = 8;
 
     private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -70,9 +71,9 @@ public class Usuario {
             throw new NullPointerException("Contraseña nula.");
         } else {
             contraseña = contraseña.trim();
-            if (contraseña.length() < LARGO_MINIMO_CONTRASEÑA) {
+            if (contraseña.length() < LARGO_MINIMO_CONTRASENA) {
                 return ResultadoMetodoImpl.setError("Contraseña muy corta.");
-            } else if (contraseña.length() > LARGO_MAXIMO_CONTRASEÑA) {
+            } else if (contraseña.length() > LARGO_MAXIMO_CONTRASENA) {
                 return ResultadoMetodoImpl.setError("Contraseña muy larga.");
             } else {
                 this.contraseña = contraseña;
@@ -143,9 +144,19 @@ public class Usuario {
         }
     }
 
+    public ResultadoMetodo validarContraseña(char[] contraseña) {
+        if (contraseña == null) {
+            throw new NullPointerException("Contraseña nula.");
+        } else if (Arrays.equals(getContraseña().toCharArray(), contraseña)) {
+            return ResultadoMetodoImpl.setSinError();
+        } else {
+            return ResultadoMetodoImpl.setError("Contraseña Incorrecta.");
+        }
+    }
+
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nombre=" + nombre + '}';
+        return nombre.toString();
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

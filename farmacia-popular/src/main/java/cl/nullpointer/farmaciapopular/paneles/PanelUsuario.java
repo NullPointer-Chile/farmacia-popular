@@ -167,7 +167,7 @@ public class PanelUsuario extends PanelBase {
     }//GEN-LAST:event_textNombreKeyTyped
 
     private void textContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textContraseñaKeyTyped
-        limitarLargo(evt, textContraseña, Usuario.LARGO_MAXIMO_CONTRASEÑA);
+        limitarLargo(evt, textContraseña, Usuario.LARGO_MAXIMO_CONTRASENA);
     }//GEN-LAST:event_textContraseñaKeyTyped
 
     private void textNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyReleased
