@@ -4,11 +4,14 @@ import base.utilidades.Aplicacion;
 import base.utilidades.Utils;
 import cl.nullpointer.farmaciapopular.paneles.PanelPrincipal;
 import com.pagosoft.plaf.PlafOptions;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
+import java.util.Enumeration;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import org.apache.log4j.Logger;
 
 /**
@@ -36,7 +39,10 @@ public class Main {
         PlafOptions.setAsLookAndFeel();
         PlafOptions.updateAllUIs();
 
-        setUIFont(new javax.swing.plaf.FontUIResource("UnDotum", Font.PLAIN, 14));
+        UIDefaults defaults = UIManager.getDefaults();
+        Enumeration newKeys = defaults.keys();
+        
+        defaults.put("Panel.background", new ColorUIResource(Color.white));
 
         // Comprobar que la aplicación no se encuentra corriendo
         if (!Utils.comprobarInstancia()) {
@@ -65,16 +71,5 @@ public class Main {
         ventanaPrincipal.setLocationRelativeTo(null);
         ventanaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventanaPrincipal.setVisible(true);
-    }
-
-    public static void setUIFont(javax.swing.plaf.FontUIResource f) {
-        java.util.Enumeration keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
-                UIManager.put(key, f);
-            }
-        }
     }
 }
