@@ -7,7 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- * Ventana principal de la aplicación con los menús para acceder a las distintas funcionalidades.
+ * Ventana principal de la aplicación con los menús para acceder a las distintas
+ * funcionalidades.
  *
  * @author Omar Paché
  */
@@ -96,7 +97,18 @@ public class PanelPrincipal extends JFrame {
      * Se abre el panel mantenedor de proveedores.
      */
     private void abrirPanelProveedores() {
-
+        JFrame mainFrame = Main.getVentanaPrincipal();
+        JDialog dialogProveedores;
+        dialogProveedores = new JDialog(mainFrame);
+        dialogProveedores.setName("dialogProveedor");
+        dialogProveedores.setTitle("Listado Proveedores Activos");
+        dialogProveedores.setModal(true);
+        dialogProveedores.setPreferredSize(new Dimension(350, 600));
+        dialogProveedores.setResizable(false);
+        PanelProveedores panelProveedores = new PanelProveedores();
+        dialogProveedores.setContentPane(panelProveedores);
+        dialogProveedores.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Main.getAplicacion().show(dialogProveedores, true);
     }
 
     /**
