@@ -48,6 +48,7 @@ public class PanelFabricantes extends PanelBase {
         tablaFabricantes.getColumnModel().getColumn(COLUMNA_ID).setPreferredWidth(50);
         tablaFabricantes.getColumnModel().getColumn(COLUMNA_NOMBRE).setPreferredWidth(250);
         centrarColumna(tablaFabricantes, COLUMNA_ID);
+        habilitarOrdenamiento(textFiltro);
     }
 
     /**
@@ -178,11 +179,16 @@ public class PanelFabricantes extends PanelBase {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         fabricantesList = java.beans.Beans.isDesignTime() ? Collections.emptyList() : ObservableCollections.observableList(new ArrayList<>());
+        rowSorterToStringConverter1 = new base.utilidades.RowSorterToStringConverter();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaFabricantes = new javax.swing.JTable();
         botonEliminar = new javax.swing.JButton();
         botonNuevo = new javax.swing.JButton();
         botonModificar = new javax.swing.JButton();
+        textFiltro = new javax.swing.JTextField();
+        lblFiltro = new javax.swing.JLabel();
+
+        rowSorterToStringConverter1.setTable(tablaFabricantes);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, fabricantesList, tablaFabricantes);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
@@ -228,6 +234,12 @@ public class PanelFabricantes extends PanelBase {
             }
         });
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tablaFabricantes, org.jdesktop.beansbinding.ELProperty.create("${rowSorter}"), textFiltro, org.jdesktop.beansbinding.BeanProperty.create("text"), "queestasbuncansodemidime"); // NOI18N
+        binding.setConverter(rowSorterToStringConverter1);
+        bindingGroup.addBinding(binding);
+
+        lblFiltro.setText("Filto:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,14 +254,23 @@ public class PanelFabricantes extends PanelBase {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonEliminar)))
+                        .addComponent(botonEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblFiltro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFiltro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEliminar)
@@ -291,7 +312,10 @@ public class PanelFabricantes extends PanelBase {
     private javax.swing.JButton botonNuevo;
     private java.util.List<Fabricante> fabricantesList;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblFiltro;
+    private base.utilidades.RowSorterToStringConverter rowSorterToStringConverter1;
     private javax.swing.JTable tablaFabricantes;
+    private javax.swing.JTextField textFiltro;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
