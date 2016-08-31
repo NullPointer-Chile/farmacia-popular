@@ -7,8 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- * Ventana principal de la aplicación con los menús para acceder a las distintas
- * funcionalidades.
+ * Ventana principal de la aplicación con los menús para acceder a las distintas funcionalidades.
  *
  * @author Omar Paché
  */
@@ -19,7 +18,7 @@ public class PanelPrincipal extends JFrame {
      */
     public PanelPrincipal() {
         initComponents();
-        
+
         JDialog dialogAutenticacion;
         dialogAutenticacion = new JDialog(this);
         dialogAutenticacion.setName("dialogAutenticacion");
@@ -30,7 +29,7 @@ public class PanelPrincipal extends JFrame {
         dialogAutenticacion.setContentPane(panelAutenticacion);
         dialogAutenticacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Main.getAplicacion().show(dialogAutenticacion, true);
-        
+
         if (!panelAutenticacion.estaUsuarioAutenticado()) {
             System.exit(0);
         }
@@ -92,7 +91,28 @@ public class PanelPrincipal extends JFrame {
         dialogFabricantes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Main.getAplicacion().show(dialogFabricantes, true);
     }
-    
+
+    /**
+     * Se abre el panel mantenedor de proveedores.
+     */
+    private void abrirPanelProveedores() {
+
+    }
+
+    /**
+     * Se abre el panel mantenedor de productos.
+     */
+    private void abrirPanelProductos() {
+
+    }
+
+    /**
+     * Se abre el panel mantenedor de clientes.
+     */
+    private void abrirPanelClientes() {
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,6 +125,9 @@ public class PanelPrincipal extends JFrame {
         menuMantenedores = new javax.swing.JMenu();
         menuUsuarios = new javax.swing.JMenuItem();
         menuFabricantes = new javax.swing.JMenuItem();
+        menuProveedores = new javax.swing.JMenuItem();
+        menuProductos = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         menuItemAcercaDe = new javax.swing.JMenuItem();
 
@@ -148,6 +171,30 @@ public class PanelPrincipal extends JFrame {
             }
         });
         menuMantenedores.add(menuFabricantes);
+
+        menuProveedores.setText("Proveedores");
+        menuProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuProveedoresActionPerformed(evt);
+            }
+        });
+        menuMantenedores.add(menuProveedores);
+
+        menuProductos.setText("Productos");
+        menuProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuProductosActionPerformed(evt);
+            }
+        });
+        menuMantenedores.add(menuProductos);
+
+        menuClientes.setText("Clientes");
+        menuClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuClientesActionPerformed(evt);
+            }
+        });
+        menuMantenedores.add(menuClientes);
 
         barraMenu.add(menuMantenedores);
 
@@ -199,15 +246,30 @@ public class PanelPrincipal extends JFrame {
         abrirPanelfabricantes();
     }//GEN-LAST:event_menuFabricantesActionPerformed
 
+    private void menuProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProveedoresActionPerformed
+        abrirPanelProveedores();
+    }//GEN-LAST:event_menuProveedoresActionPerformed
+
+    private void menuProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProductosActionPerformed
+        abrirPanelProductos();
+    }//GEN-LAST:event_menuProductosActionPerformed
+
+    private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
+        abrirPanelClientes();
+    }//GEN-LAST:event_menuClientesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuAyuda;
+    private javax.swing.JMenuItem menuClientes;
     private javax.swing.JMenuItem menuFabricantes;
     private javax.swing.JMenuItem menuItemAcercaDe;
     private javax.swing.JMenuItem menuItemConfiguracion;
     private javax.swing.JMenuItem menuItemSalir;
     private javax.swing.JMenu menuMantenedores;
+    private javax.swing.JMenuItem menuProductos;
+    private javax.swing.JMenuItem menuProveedores;
     private javax.swing.JMenu menuSistema;
     private javax.swing.JMenuItem menuUsuarios;
     // End of variables declaration//GEN-END:variables
