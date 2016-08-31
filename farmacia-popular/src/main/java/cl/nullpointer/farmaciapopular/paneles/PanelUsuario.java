@@ -80,6 +80,7 @@ public class PanelUsuario extends PanelBase {
             }
         });
 
+        botonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tick chica.png"))); // NOI18N
         botonGuardar.setText("Guardar");
         botonGuardar.setName("botonGuardar"); // NOI18N
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {

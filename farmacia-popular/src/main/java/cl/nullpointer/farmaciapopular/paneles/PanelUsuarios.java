@@ -107,6 +107,7 @@ public class PanelUsuarios extends PanelBase {
         });
         jScrollPane1.setViewportView(masterTable);
 
+        botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quitar chica.png"))); // NOI18N
         botonEliminar.setText("Eliminar");
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +115,7 @@ public class PanelUsuarios extends PanelBase {
             }
         });
 
+        botonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar chica.png"))); // NOI18N
         botonModificar.setText("Modificar");
         botonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +123,7 @@ public class PanelUsuarios extends PanelBase {
             }
         });
 
+        botonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar chica.png"))); // NOI18N
         botonNuevo.setText("Nuevo");
         botonNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +138,7 @@ public class PanelUsuarios extends PanelBase {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botonNuevo)
@@ -149,7 +152,7 @@ public class PanelUsuarios extends PanelBase {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEliminar)

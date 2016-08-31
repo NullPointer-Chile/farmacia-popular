@@ -68,7 +68,6 @@ public class PanelPrincipal extends JFrame {
         dialogUsuarios.setName("dialogUsuarios");
         dialogUsuarios.setTitle("Listado Usuarios Activos");
         dialogUsuarios.setModal(true);
-        dialogUsuarios.setPreferredSize(new Dimension(350, 600));
         dialogUsuarios.setResizable(false);
         PanelUsuarios panelUsuarios = new PanelUsuarios();
         dialogUsuarios.setContentPane(panelUsuarios);
@@ -103,7 +102,6 @@ public class PanelPrincipal extends JFrame {
         dialogProveedores.setName("dialogProveedor");
         dialogProveedores.setTitle("Listado Proveedores Activos");
         dialogProveedores.setModal(true);
-        dialogProveedores.setPreferredSize(new Dimension(350, 600));
         dialogProveedores.setResizable(false);
         PanelProveedores panelProveedores = new PanelProveedores();
         dialogProveedores.setContentPane(panelProveedores);
