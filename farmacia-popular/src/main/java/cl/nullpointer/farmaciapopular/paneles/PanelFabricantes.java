@@ -42,12 +42,14 @@ public class PanelFabricantes extends PanelBase {
      * Establecer propiedades de componentes graficos.
      */
     private void setLookAndFeel() {
-        botonNuevo.setToolTipText("Crear nuevo fabricante");
-        botonModificar.setToolTipText("Mdificar fabricante seleccionado");
-        botonEliminar.setToolTipText("Eliminar fabricante seleccionado");
+        botonNuevo.setToolTipText("Crear nuevo fabricante (Ctrl+N)");
+        botonModificar.setToolTipText("Mdificar fabricante seleccionado (Ctrl+M)");
+        botonEliminar.setToolTipText("Eliminar fabricante seleccionado (Ctrl+E)");
+
         tablaFabricantes.getColumnModel().getColumn(COLUMNA_ID).setPreferredWidth(50);
         tablaFabricantes.getColumnModel().getColumn(COLUMNA_NOMBRE).setPreferredWidth(250);
         centrarColumna(tablaFabricantes, COLUMNA_ID);
+
         habilitarOrdenamiento(textFiltro);
     }
 
@@ -213,21 +215,24 @@ public class PanelFabricantes extends PanelBase {
         });
         jScrollPane1.setViewportView(tablaFabricantes);
 
-        botonEliminar.setText("Eliminar");
+        botonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/quitar chica.png"))); // NOI18N
+        botonEliminar.setText("Eliminar"); // NOI18N
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEliminarActionPerformed(evt);
             }
         });
 
-        botonNuevo.setText("Nuevo");
+        botonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar chica.png"))); // NOI18N
+        botonNuevo.setText("Nuevo"); // NOI18N
         botonNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonNuevoActionPerformed(evt);
             }
         });
 
-        botonModificar.setText("Modificar");
+        botonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar chica.png"))); // NOI18N
+        botonModificar.setText("Modificar"); // NOI18N
         botonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonModificarActionPerformed(evt);
@@ -247,7 +252,7 @@ public class PanelFabricantes extends PanelBase {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botonNuevo)
@@ -262,6 +267,9 @@ public class PanelFabricantes extends PanelBase {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {botonEliminar, botonModificar, botonNuevo});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -270,7 +278,7 @@ public class PanelFabricantes extends PanelBase {
                     .addComponent(textFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFiltro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEliminar)
@@ -278,6 +286,8 @@ public class PanelFabricantes extends PanelBase {
                     .addComponent(botonModificar))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {botonEliminar, botonModificar, botonNuevo});
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents

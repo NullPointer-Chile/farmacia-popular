@@ -50,7 +50,7 @@ public class PanelFabricante extends PanelBase {
      * Establecer propiedades de componentes graficos.
      */
     private void setLookAndFeel() {
-        botonGuardar.setToolTipText("Guardar Fabricante");
+        botonGuardar.setToolTipText("Guardar Fabricante (Ctrl+G)");
     }
 
     /**
@@ -129,6 +129,7 @@ public class PanelFabricante extends PanelBase {
             }
         });
 
+        botonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tick chica.png"))); // NOI18N
         botonGuardar.setText("Guardar");
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
