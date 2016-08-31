@@ -20,8 +20,8 @@ public class Fabricante {
 
     private static final Logger LOG = Logger.getLogger(Fabricante.class);
 
-    public static short HABILITADO = 1;
-    public static short DESHABILITADO = 0;
+    public static final short HABILITADO = 1;
+    public static final short DESHABILITADO = 0;
 
     private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -32,32 +32,69 @@ public class Fabricante {
     public Fabricante() {
     }
 
+    /**
+     * Obtener el identificador del fabricante.
+     *
+     * @return el ID del fabricante.
+     */
     public short getId() {
         return id;
     }
 
+    /**
+     * Asignar un ID al fabricante.
+     *
+     * @param id identificador del fabricante
+     * @throws IllegalArgumentException si el ID es invalido (igual o menos a 0)
+     */
     public void setId(short id) {
-        this.id = id;
+        if (id <= 0) {
+            throw new IllegalArgumentException("Error. Id fabricante menor o igual a cero");
+        } else {
+            this.id = id;
+        }
     }
 
+    /**
+     * Obtener el nombre el nombre del fabricante.
+     *
+     * @return El nombre del fabricante
+     */
     public Texto getNombre() {
         return nombre;
     }
 
-    public void setNombre(Texto nombre) {
+    /**
+     * Asignar un nombre al fabricante.
+     *
+     * @param nombre el nombre como tipo Texto
+     * @return el resultado de la operacion. Error o sin error
+     */
+    public ResultadoMetodo setNombre(Texto nombre) {
         if (nombre == null) {
-            throw new NullPointerException("Nombre fabricante nulo.");
+            return ResultadoMetodoImpl.setError("Nombre fabricante nulo.");
         } else if (nombre.validarLargo(4, 30).isError()) {
-            throw new IllegalArgumentException(nombre.validarLargo(4, 30).getMensaje());
+            return ResultadoMetodoImpl.setError(nombre.validarLargo(4, 30).getMensaje());
         } else {
             this.nombre = nombre;
+            return ResultadoMetodoImpl.setSinError();
         }
     }
 
+    /**
+     * Obtener la variable habilitado.
+     *
+     * @return
+     */
     public short getHabilitado() {
         return habilitado;
     }
 
+    /**
+     * Asignar la variable habilitado.
+     *
+     * @param habilitado el estado de la variable habilitado. 1:habilidato 0:deshabilitado
+     */
     public void setHabilitado(short habilitado) {
         this.habilitado = habilitado;
     }
@@ -66,6 +103,7 @@ public class Fabricante {
      * Insertar un fabricante.
      *
      * @return el resultado de la operación, error o sin error
+     * @throws NullPointerException si el nombre es nulo
      */
     public ResultadoMetodo insertar() {
         if (nombre == null) {
@@ -77,6 +115,27 @@ public class Fabricante {
                 short registrosActuales = DAOManager.getFabricanteDAO().contar();
                 this.setId((short) (registrosActuales + 1));
                 DAOManager.getFabricanteDAO().insertar(this);
+                return ResultadoMetodoImpl.setSinError();
+            });
+        }
+    }
+
+    /**
+     * Actualiza un fabricante.
+     *
+     * @return el resultado de la operación, error o sin error
+     */
+    public ResultadoMetodo actualizar() {
+        if (id == 0) {
+            throw new IllegalArgumentException("ID invalido.");
+        }
+        if (nombre == null) {
+            throw new NullPointerException("Nombre nulo.");
+        } else {
+            ProcedimientoTransaccionalDAO procedimiento = new DAOManager();
+
+            return (ResultadoMetodo) procedimiento.transaccion((DAOManager DAOManager) -> {
+                DAOManager.getFabricanteDAO().actualizar(this);
                 return ResultadoMetodoImpl.setSinError();
             });
         }
@@ -115,6 +174,11 @@ public class Fabricante {
         });
     }
 
+    /**
+     * Obtener el nombre del fabricante.
+     *
+     * @return el nombre del fabricante
+     */
     @Override
     public String toString() {
         return nombre.toString();

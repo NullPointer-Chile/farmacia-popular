@@ -64,7 +64,7 @@ public class FabricanteDAO extends EclipseLinkDAO {
     /**
      * Cuenta los fabricantes existentes en BD.
      *
-     * @return la cantidad de fabricantes entontrados
+     * @return la cantidad de fabricantes encontrados
      */
     public short contar() {
         LOG.debug("Obteniendo registros actuales de fabricantes.");
@@ -80,7 +80,7 @@ public class FabricanteDAO extends EclipseLinkDAO {
      * Inserta un nuevo registro de fabricante en BD.
      *
      * @param fabricante el objeto fabricante a insertar
-     * @return
+     * @return el resultado de la operación
      */
     public ResultadoMetodo insertar(Fabricante fabricante) {
         insertar(toEntity(fabricante));
@@ -88,10 +88,21 @@ public class FabricanteDAO extends EclipseLinkDAO {
     }
 
     /**
+     * Actualiza un registro de fabricante en BD.
+     *
+     * @param fabricante el objeto fabricante a actualizar
+     * @return el resultado de la operación
+     */
+    public ResultadoMetodo actualizar(Fabricante fabricante) {
+        actualizar(toEntity(fabricante));
+        return ResultadoMetodoImpl.setSinError();
+    }
+
+    /**
      * Deshabilitar un fabricante.
      *
      * @param fabricante el objeto fabricante a deshabilitar
-     * @return
+     * @return el resultado de la operación
      */
     public ResultadoMetodo deshabilitar(Fabricante fabricante) {
         super.actualizar(toEntity(fabricante));

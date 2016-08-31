@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
 /**
+ * Panel usado para crear o modificar un fabricante.
  *
  * @author Omar Paché
  */
@@ -19,19 +20,29 @@ public class PanelFabricante extends PanelBase {
     private static final Logger LOG = Logger.getLogger(PanelFabricante.class);
 
     private Fabricante fabricante;
+    private boolean modificar = false;
 
+    /**
+     * Constructor usado para crear un nuevo fabricante.
+     */
     public PanelFabricante() {
         initComponents();
         setLookAndFeel();
         activarAtajosTeclado();
     }
 
+    /**
+     * Constructor usado para modificar un fabricante existente.
+     *
+     * @param fabricante el objeto Fabricante a modificar
+     */
     public PanelFabricante(Fabricante fabricante) {
         initComponents();
         setLookAndFeel();
         activarAtajosTeclado();
 
         this.fabricante = fabricante;
+        this.modificar = true;
         textNombre.setText(fabricante.getNombre().toString());
     }
 
@@ -61,20 +72,36 @@ public class PanelFabricante extends PanelBase {
     }
 
     /**
-     * Se crea y guarda un fabricante.
+     * Se guarda un fabricante nuevo o modificado.
      */
     private void guardar() {
         LOG.info("Creando fabricante");
 
+        // Si se esta creando un nuevo fabricante se instancia uno nuevo
+        if (!modificar) {
+            fabricante = new Fabricante();
+        }
+
         Texto nombre = new Texto(textNombre.getText());
-        fabricante = new Fabricante();
-        fabricante.setNombre(nombre);
+
+        if (fabricante.setNombre(nombre).isError()) {
+            pintarRojoText(textNombre);
+            dejarFocoEn(textNombre);
+            return;
+        }
+
         fabricante.setHabilitado(Fabricante.HABILITADO);
 
-        ResultadoMetodo resultadoGuardar = fabricante.insertar();
+        ResultadoMetodo resultadoOperacion;
 
-        if (resultadoGuardar.isError()) {
-            String mensaje = resultadoGuardar.getMensaje();
+        if (modificar) {
+            resultadoOperacion = fabricante.actualizar();
+        } else {
+            resultadoOperacion = fabricante.insertar();
+        }
+
+        if (resultadoOperacion.isError()) {
+            String mensaje = resultadoOperacion.getMensaje();
             LOG.info(mensaje);
             JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -96,6 +123,9 @@ public class PanelFabricante extends PanelBase {
         textNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textNombreKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textNombreKeyPressed(evt);
             }
         });
 
@@ -142,6 +172,12 @@ public class PanelFabricante extends PanelBase {
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         guardar();
     }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void textNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyPressed
+        if (sePresionoTeclaEnter(evt)) {
+            botonGuardarActionPerformed(null);
+        }
+    }//GEN-LAST:event_textNombreKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGuardar;

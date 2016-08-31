@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
+ * Panel que lista los fabricantes existentes y permite su creación, modificación o eliminación.
  *
  * @author Omar Paché
  */
@@ -54,14 +55,27 @@ public class PanelFabricantes extends PanelBase {
      */
     private void activarAtajosTeclado() {
         AtajoDeTeclado atajo = new AtajoDeTeclado(this);
+
+        // Atajo Salir
         atajo.agregarAtajoSalirDialog();
 
+        // Atajo nuevo
+        atajo.agregarAtajoBotonNuevo(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                botonNuevoActionPerformed(evt);
+            }
+        });
+
+        // Atajo Modificar
         atajo.agregarAtajoBotonModificar(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 botonModificarActionPerformed(evt);
             }
         });
+
+        // Atajo eliminar
         atajo.agregarAtajoBotonEliminar(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -100,6 +114,10 @@ public class PanelFabricantes extends PanelBase {
      * Abrir panel para modificar fabricante seleccionado.
      */
     private void abrirPanelModificar() {
+        if (getFabricanteSeleccionado() == null) {
+            return;
+        }
+
         JFrame mainFrame = Main.getVentanaPrincipal();
         JDialog dialogFabricante;
         dialogFabricante = new JDialog(mainFrame);
@@ -114,6 +132,9 @@ public class PanelFabricantes extends PanelBase {
         refrescarTabla();
     }
 
+    /**
+     * Deshabilita el fabricante seleccionado en la tabla.
+     */
     private void deshabilitar() {
         LOG.info("Rechazando tratamiento");
 
@@ -137,9 +158,9 @@ public class PanelFabricantes extends PanelBase {
     }
 
     /**
-     * Obtener el objeto Convenio a partir de la fila seleccionada en la tabla principal.
+     * Obtener el objeto Fabricante a partir de la fila seleccionada en la tabla principal.
      *
-     * @return el convenio contigo seleccionado
+     * @return el Fabricante seleccionado
      */
     private Fabricante getFabricanteSeleccionado() {
         Fabricante fabricante;
@@ -177,6 +198,11 @@ public class PanelFabricantes extends PanelBase {
         tablaFabricantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaFabricantesMouseClicked(evt);
+            }
+        });
+        tablaFabricantes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tablaFabricantesKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(tablaFabricantes);
@@ -252,6 +278,12 @@ public class PanelFabricantes extends PanelBase {
             abrirPanelModificar();
         }
     }//GEN-LAST:event_tablaFabricantesMouseClicked
+
+    private void tablaFabricantesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaFabricantesKeyPressed
+        if (sePresionoTeclaEnter(evt)) {
+            botonModificarActionPerformed(null);
+        }
+    }//GEN-LAST:event_tablaFabricantesKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEliminar;
