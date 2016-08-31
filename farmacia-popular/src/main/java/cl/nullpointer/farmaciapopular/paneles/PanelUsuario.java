@@ -78,9 +78,6 @@ public class PanelUsuario extends PanelBase {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textNombreKeyTyped(evt);
             }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textNombreKeyReleased(evt);
-            }
         });
 
         botonGuardar.setText("Guardar");
@@ -169,9 +166,6 @@ public class PanelUsuario extends PanelBase {
     private void textContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textContraseñaKeyTyped
         limitarLargo(evt, textContraseña, Usuario.LARGO_MAXIMO_CONTRASENA);
     }//GEN-LAST:event_textContraseñaKeyTyped
-
-    private void textNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNombreKeyReleased
-    }//GEN-LAST:event_textNombreKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

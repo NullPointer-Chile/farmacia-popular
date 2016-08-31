@@ -1,6 +1,5 @@
 package cl.nullpointer.farmaciapopular.paneles;
 
-import cl.nullpointer.farmaciapopular.dominio.Usuario;
 import cl.nullpointer.farmaciapopular.main.Main;
 import java.awt.Dimension;
 import javax.swing.JDialog;
@@ -8,7 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- * Ventana principal de la aplicación con los menús para acceder a las distintas funcionalidades.
+ * Ventana principal de la aplicación con los menús para acceder a las distintas
+ * funcionalidades.
  *
  * @author Omar Paché
  */
@@ -31,6 +31,9 @@ public class PanelPrincipal extends JFrame {
         dialogAutenticacion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Main.getAplicacion().show(dialogAutenticacion, true);
         
+        if (!panelAutenticacion.estaUsuarioAutenticado()) {
+            System.exit(0);
+        }
     }
 
     /**
@@ -89,7 +92,7 @@ public class PanelPrincipal extends JFrame {
         dialogFabricantes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Main.getAplicacion().show(dialogFabricantes, true);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
